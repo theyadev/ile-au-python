@@ -1,4 +1,4 @@
-from clear import cls
+from clear import clear
 from move import move
 import msvcrt
 
@@ -6,11 +6,11 @@ def userInput(p):
     command = bytes.decode(msvcrt.getch()).lower()
 
     if command == "l":
-        cls()
+        clear()
         print('Quitter')
         exit()
     elif command == "e":
-        cls()
+        clear()
         print("Inventaire")
         return userInput(p)
     elif command == "q":

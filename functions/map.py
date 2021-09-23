@@ -1,4 +1,4 @@
-from clear import cls
+from clear import clear
 import settings
 # input Taille de la carte
 
@@ -13,7 +13,7 @@ import settings
 
 
 def printMap(p):
-    cls()
+    clear()
     for i in range(len(settings.M)):
         l = ""
         for j in range(len(settings.M[i])):

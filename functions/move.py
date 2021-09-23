@@ -1,7 +1,7 @@
 import settings
 from collision import collision
 from map import printMap
-from clear import cls
+from clear import clear
 
 def move(x, y, p):
     if collision(x, y, p) == False:
@@ -9,7 +9,7 @@ def move(x, y, p):
         p["pos"]["y"] += y
         pos = settings.M[p["pos"]["y"], p["pos"]["x"]]
         if (pos == 5):
-            cls()
+            clear()
             print('DEFI !!!!!!!!!!!')
         else:
             printMap(p)
