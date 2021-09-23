@@ -1,8 +1,12 @@
 def getName():
-    n = input(f"Quel est ton pseudonyme ? ")
+    n = input(f"Comment t'apelles-tu ? ")
     try:
         n = int(n)
-        print('Nom invalide.\n\n')
+        print('Le nom ne doit pas contenir de chiffres !\n\n')
         return getName()
     except:
-        return n
+        if (len(n) < 3):
+            print("Le nom doit contenir plus de 2 caractères !\n\n")
+            return getName()
+        else:
+            return n
