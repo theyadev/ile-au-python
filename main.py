@@ -3,7 +3,6 @@ import sys
 
 sys.path.append('./functions/')
 
-from clear import cls
 from getName import getName
 from map import printMap
 from userInput import userInput
