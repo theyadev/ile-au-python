@@ -2,8 +2,13 @@ from clear import clear
 from move import move
 import msvcrt
 
+
 def userInput(p):
-    command = bytes.decode(msvcrt.getch()).lower()
+    command = ""
+    try:
+        command = bytes.decode(msvcrt.getch()).lower()
+    except:
+        return userInput(p)
 
     if command == "l":
         clear()
