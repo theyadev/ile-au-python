@@ -26,7 +26,7 @@ def printMap(p):
             elif settings.M[i][j] == 2:
                 l += "🟦"
             elif settings.M[i][j] == 3:
-                l += "🟩"
+                l += "f "
             elif settings.M[i][j] == 5:
                 l += "❌"
         print(l)
