@@ -27,7 +27,7 @@ def init():
     p = {
         #"name": getName(),
         "pos": {
-            "x": settings.m-settings.m//25-1,
+            "x": 38,
             "y": settings.n-settings.n//15-1
         }
     }
