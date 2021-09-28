@@ -28,7 +28,7 @@ def init():
         #"name": getName(),
         "pos": {
             "x": 38,
-            "y": settings.n-settings.n//15-1
+            "y": 24
         }
     }
 
@@ -42,7 +42,7 @@ def init():
              ]
     #for text in texts:
     #    writeAnimation(text)
-    input(textContinue)
+    #input(textContinue)
     printMap(p)
     userInput(p)
 
