@@ -1,8 +1,7 @@
 import json
 
 def init():
-    global n, m, M
-    n, m = 30, 50
+    global M
 
     with open('map.json') as mattrix:
         data = json.load(mattrix)
