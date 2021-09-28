@@ -1,4 +1,5 @@
 from clear import clear
+from random import randint
 import settings
 # input Taille de la carte
 
@@ -25,10 +26,10 @@ def printMap(p):
                 l += "🔳"
             elif settings.M[i][j] == 2:
                 l += "🟦"
+            elif settings.M[i][j] == 3:
+                l += "🌴" if randint(0,1) == 0 else "🌳"
             elif settings.M[i][j] == 4:
                 l += "🟡"
-            elif settings.M[i][j] == 3:
-                l += "\033[92mf \033[0m"
             elif settings.M[i][j] == 5:
                 l += "❌"
         print(l)
