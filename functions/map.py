@@ -1,6 +1,5 @@
 from clear import clear
-from random import randint
-import settings
+from collision import checkChallengesCollision
 # input Taille de la carte
 
 '''
@@ -12,25 +11,35 @@ import settings
 5 = Defi
 '''
 
-
-def printMap(p):
+def printMap(settings, p):
+    map_mattrix = settings['map']
+    challenges = settings["challenges"]
     clear()
-    for i in range(len(settings.M)):
+    map_str = ""
+    for i in range(len(map_mattrix)):
         l = ""
-        for j in range(len(settings.M[i])):
+        for j in range(len(map_mattrix[i])): 
+            map_elem = map_mattrix[i][j]
             if j == p["pos"]["x"] and i == p["pos"]["y"]:
-                l += "😁"
-            elif settings.M[i][j] == 0:
-                l += "  "
-            elif settings.M[i][j] == 1:
-                l += "🔳"
-            elif settings.M[i][j] == 2:
-                l += "🟦"
-            elif settings.M[i][j] == 3:
-                l += "🌴" if randint(0,1) == 0 else "🌳"
-            elif settings.M[i][j] == 4:
-                l += "🟡"
-            elif settings.M[i][j] == 5:
+                if map_elem == 2:
+                    l += "🛳️"
+                else:
+                    l += "😁"
+            elif checkChallengesCollision(challenges, j ,i):
                 l += "❌"
-        print(l)
+            elif map_elem == 0:
+                l += "  "
+            elif map_elem == 1:
+                l += "🔳"
+            elif map_elem == 2:
+                l += "🟦"
+            elif map_elem == 3:
+                l += "🌴"
+            elif map_elem == 4:
+                l += "🌳"
+            elif map_elem == 5:
+                l += "🟡"
+        map_str += l + "\n"
+    print(map_str)
     print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
+    print(f'Position Y: {p["pos"]["y"]} | Position X: {p["pos"]["x"]}')

@@ -1,4 +1,4 @@
-import settings
+from settings import initMap, initChallenges
 import sys
 import time
 
@@ -9,7 +9,6 @@ from map import printMap
 from getName import getName
 from clear import clear
 
-settings.init()
 
 
 def writeAnimation(t):
@@ -23,7 +22,9 @@ def writeAnimation(t):
             time.sleep(0.02)
 
 
-def init():
+def startGame():
+    M = initMap()
+    challenges = initChallenges()
     p = {
         #"name": getName(),
         "pos": {
@@ -43,9 +44,9 @@ def init():
     #for text in texts:
     #    writeAnimation(text)
     #input(textContinue)
-    printMap(p)
-    userInput(p)
+    printMap({ "map": M, "challenges": challenges }, p)
+    userInput(p, { "map": M, "challenges": challenges })
 
 
 if __name__ == '__main__':
-    init()
+    startGame()

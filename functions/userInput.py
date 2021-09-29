@@ -1,14 +1,32 @@
 from clear import clear
-from move import move
+from collision import collision, checkChallengesCollision
+from startChallenge import startChallenge
+from map import printMap
 import msvcrt
 
+def move(x, y, p, settings):
+    map_mattrix = settings['map']
+    if collision(x, y, p, map_mattrix) == False:
+        p["pos"]["x"] += x
+        p["pos"]["y"] += y
+        challenge = checkChallengesCollision(
+            settings["challenges"], p["pos"]["x"], p["pos"]["y"])
+        if challenge:
+            clear()
+            startChallenge(challenge)
+            clear()
+            printMap(settings, p)
+            userInput(p, settings)
+        else:
+            printMap(settings, p)
+            userInput(p, settings)
 
-def userInput(p):
+def userInput(p, settings):
     command = ""
     try:
         command = bytes.decode(msvcrt.getch()).lower()
     except:
-        return userInput(p)
+        return userInput(p, settings)
 
     if command == "l":
         clear()
@@ -17,18 +35,17 @@ def userInput(p):
     elif command == "e":
         clear()
         print("Inventaire")
-        return userInput(p)
+        return userInput(p, settings)
     elif command == "q":
-        move(-1, 0, p)
-        return userInput(p)
+        move(-1, 0, p, settings)
     elif command == "d":
-        move(1, 0, p)
-        return userInput(p)
+        move(1, 0, p, settings)
+        
     elif command == "z":
-        move(0, -1, p)
-        return userInput(p)
+        move(0, -1, p, settings)
+        
     elif command == "s":
-        move(0, 1, p)
-        return userInput(p)
+        move(0, 1, p, settings)
+        
     else:
-        return userInput(p)
+        return userInput(p, settings)
