@@ -1,34 +1,34 @@
-from random import randint
+from random import randint,seed
 from time import sleep
 
 
-def startGame():
+def startGame(player_name):
+    seed(randint(0, 100000))
     chief_monkeys = 1
     default_monkeys = 9
-    players = 1
 
     players_list = []
 
     prob_chief_min = 70
     prob_chief_max = 90
 
-    prob_default_min = 40
-    prob_default_max = 70
+    prob_default_min = 50
+    prob_default_max = 60
 
 
     prob_player_min = 80
-    prob_player_max = 90
+    prob_player_max = 95
 
     for i in range(default_monkeys):
         players_list.insert(randint(0, len(players_list)), [f"Singe N°{i+1}", randint(prob_default_min, prob_default_max)])
-    for i in range(players):
-        players_list.insert(randint(0, len(players_list)), [f"Player", randint( prob_player_min, prob_player_max)])
     for i in range(chief_monkeys):
         players_list.insert(randint(0, len(players_list)), [f"Chef Singe N°{i+1}", randint(prob_chief_min, prob_chief_max)])
 
+    players_list.insert(randint(0, len(players_list)), [player_name, randint( prob_player_min, prob_player_max)])
+
     def round(r):
         if len(players_list) == 1:
-            return f"Le gagnant est: {players_list[0][0]}"
+            return players_list[0][0]
         print(f"Début du round {r}")
         i = 0
         for n in range(1, 1000):   
@@ -42,8 +42,9 @@ def startGame():
                     answer += "Buzz"
                 else:
                     answer += str(n)
-            
-                if randint(0,100) <= players_list[i][1]:
+                random_number = randint(0,100)
+
+                if random_number <= players_list[i][1]:
                     print(f"{players_list[i][0]}: {answer}")
                 else:
                     print(f"{players_list[i][0]} a perdu !!!!\n\n")
@@ -55,6 +56,4 @@ def startGame():
                     i+= 1
                 
         
-    print(round(1))
-
-    input("\nAppuyez sur Entrée pour finir...")
+    return round(1)
