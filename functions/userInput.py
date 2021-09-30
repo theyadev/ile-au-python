@@ -1,4 +1,6 @@
 from clear import clear
+from save import save
+from settings import initChallenges
 from collision import collision, checkChallengesCollision
 from startChallenge import startChallenge
 from map import printMap
@@ -10,7 +12,7 @@ def move(x, y, p, settings):
         p["pos"]["x"] += x
         p["pos"]["y"] += y
         challenge = checkChallengesCollision(
-            settings["challenges"], p["pos"]["x"], p["pos"]["y"])
+            initChallenges(), p["pos"]["x"], p["pos"]["y"])
         if challenge:
             clear()
             startChallenge(challenge)
@@ -20,6 +22,9 @@ def move(x, y, p, settings):
         else:
             printMap(settings, p)
             userInput(p, settings)
+    else:
+        userInput(p, settings)
+
 
 def userInput(p, settings):
     command = ""
@@ -30,7 +35,9 @@ def userInput(p, settings):
 
     if command == "l":
         clear()
-        print('Quitter')
+        print('Sauvegarde en cours...')
+        save(p)
+        print("Quitter...")
         exit()
     elif command == "e":
         clear()
