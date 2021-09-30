@@ -35,11 +35,11 @@ def startGame(player_name):
                 answer = str(n)
                 sleep(0.3)
                 if n % 3 == 0 and n % 5 == 0:
-                    answer += "FizzBuzz"
+                    answer = "FizzBuzz"
                 elif n % 3 == 0:
-                    answer += "Fizz"
+                    answer = "Fizz"
                 elif n % 5 == 0:
-                    answer += "Buzz"
+                    answer = "Buzz"
                 random_number = randint(0,100)
 
                 if random_number <= players_list[i][1]:
