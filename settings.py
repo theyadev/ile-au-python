@@ -13,7 +13,6 @@ def initMap():
                     try:
                         if int(l) == 3:
                             random_nmber = randint(0,5)
-                            print(random_nmber)
                             if random_nmber <= 4:
                                 M[index].append(int(l))
                             else:
