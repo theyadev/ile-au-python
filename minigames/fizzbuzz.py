@@ -32,7 +32,7 @@ def startGame(player_name):
         print(f"Début du round {r}")
         i = 0
         for n in range(1, 1000):   
-                answer = ""
+                answer = str(n)
                 sleep(0.3)
                 if n % 3 == 0 and n % 5 == 0:
                     answer += "FizzBuzz"
@@ -40,8 +40,6 @@ def startGame(player_name):
                     answer += "Fizz"
                 elif n % 5 == 0:
                     answer += "Buzz"
-                else:
-                    answer += str(n)
                 random_number = randint(0,100)
 
                 if random_number <= players_list[i][1]:
