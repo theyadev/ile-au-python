@@ -1,4 +1,5 @@
 from clear import clear
+from settings import initChallenges
 from collision import checkChallengesCollision
 # input Taille de la carte
 
@@ -13,7 +14,7 @@ from collision import checkChallengesCollision
 
 def printMap(settings, p):
     map_mattrix = settings['map']
-    challenges = settings["challenges"]
+    challenges = initChallenges()
     clear()
     map_str = ""
     for i in range(len(map_mattrix)):
@@ -40,6 +41,7 @@ def printMap(settings, p):
             elif map_elem == 5:
                 l += "🟡"
         map_str += l + "\n"
+    print(f"Partie de {p['name']} !")
     print(map_str)
     print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
     print(f'Position Y: {p["pos"]["y"]} | Position X: {p["pos"]["x"]}')
