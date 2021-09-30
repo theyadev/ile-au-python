@@ -23,7 +23,6 @@ def writeAnimation(t):
 
 
 def startGame():
-    M = initMap()
     p = initPlayer()
     reset = False
     if p["name"] == None:
@@ -39,6 +38,7 @@ def startGame():
                     p = initPlayer(reset)
                     p["name"] = getName()
     
+    M = initMap(p["seed"])
         
     clear()
 

@@ -1,10 +1,10 @@
 import json
 from random import randint, seed
+import time
 
-
-def initMap():
+def initMap(p_seed):
     M = []
-    seed(5)
+    seed(p_seed)
     with open('map.json') as mattrix:
         data = json.load(mattrix)
         M = []
@@ -53,7 +53,8 @@ def initPlayer(reset=False):
                 "pos": {
                     "x": 38,
                     "y": 24
-                }
+                },
+                "seed": round(time.time() * 1000)
             }
             json.dump(default_player, p, ensure_ascii=False, indent=4)
             return default_player
