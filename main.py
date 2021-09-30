@@ -1,4 +1,4 @@
-from settings import initMap, initChallenges
+from settings import *
 import sys
 import time
 
@@ -24,15 +24,22 @@ def writeAnimation(t):
 
 def startGame():
     M = initMap()
-    challenges = initChallenges()
-    p = {
-        #"name": getName(),
-        "pos": {
-            "x": 38,
-            "y": 24
-        }
-    }
+    p = initPlayer()
+    reset = False
+    if p["name"] == None:
+        p["name"] = getName()
+    else:  
+        res = input(f"Voulez vous reprendre avec le profil de {p['name']} ? ")
 
+        if res.lower() == "non" or res.lower() == "n":
+                res2 = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p['name']} ?! ")
+                if res2.lower() == "o" or res2.lower() == "oui":
+                    reset = True
+                    initChallenges(reset)
+                    p = initPlayer(reset)
+                    p["name"] = getName()
+    
+        
     clear()
 
     textContinue = '\nAppuyez sur entrée pour continuer...'
@@ -44,8 +51,8 @@ def startGame():
     #for text in texts:
     #    writeAnimation(text)
     #input(textContinue)
-    printMap({ "map": M, "challenges": challenges }, p)
-    userInput(p, { "map": M, "challenges": challenges })
+    printMap({ "map": M}, p)
+    userInput(p, { "map": M})
 
 
 if __name__ == '__main__':

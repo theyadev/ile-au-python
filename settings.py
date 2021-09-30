@@ -1,6 +1,7 @@
 import json
 from random import randint, seed
 
+
 def initMap():
     M = []
     seed(5)
@@ -12,7 +13,7 @@ def initMap():
                 for l in i:
                     try:
                         if int(l) == 3:
-                            random_nmber = randint(0,5)
+                            random_nmber = randint(0, 5)
                             if random_nmber <= 4:
                                 M[index].append(int(l))
                             else:
@@ -22,10 +23,41 @@ def initMap():
                     except:
                         M.insert(index, [])
                         M[index].append(int(l))
-    
+
     return M
 
-def initChallenges():
-    with open("challenges.json") as challenges:
-        data = json.load(challenges)
-        return data
+# TODO: Si challenges.json vide ou inexistant, le creer
+def initChallenges(reset=False):
+    if reset == True:
+        with open("challenges.json", "r+") as challenges:
+            data = json.load(challenges)
+
+            for index in range(len(data)):
+                data[index]["completed"] = False
+
+            challenges.seek(0)
+            json.dump(data, challenges, ensure_ascii=False, indent=4)
+            challenges.truncate()
+            return data
+    else:
+        with open("challenges.json") as challenges:
+            data = json.load(challenges)
+            return data
+
+# TODO: Si player.json vide ou inexistant, le creer
+def initPlayer(reset=False):
+    if reset == True:
+        with open("player.json", "w") as p:
+            default_player = {
+                "name": None,
+                "pos": {
+                    "x": 38,
+                    "y": 24
+                }
+            }
+            json.dump(default_player, p, ensure_ascii=False, indent=4)
+            return default_player
+    else:
+        with open("player.json") as p:
+            data = json.load(p)
+            return data
