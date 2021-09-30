@@ -15,7 +15,8 @@ from collision import checkChallengesCollision
 def printMap(settings, p):
     map_mattrix = settings['map']
     challenges = initChallenges()
-    clear()
+    print((len(map_mattrix) + 5) * "\033[A" , end="")
+    # clear()
     map_str = ""
     for i in range(len(map_mattrix)):
         l = ""
