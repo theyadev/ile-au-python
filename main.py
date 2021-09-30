@@ -3,6 +3,7 @@ import sys
 import time
 
 sys.path.append('./functions/')
+sys.path.append('./minigames/')
 
 from userInput import userInput
 from map import printMap
