@@ -6,5 +6,13 @@
             "x": 13
         },
         "completed": true
+    },
+    {
+        "name": "randomnumber",
+        "pos": {
+            "y": 7,
+            "x": 47
+        },
+        "completed": true
     }
 ]

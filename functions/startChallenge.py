@@ -20,7 +20,8 @@ def startChallenge(challenge_name):
         input("\nAppuyez sur Entrée pour continuer... ")
         return
     else:
-        print(f'Le gagnant est: {winner} !')
+        if winner:
+            print(f'Le gagnant est: {winner} !')
         print('Vous avez perdu ! Voulez-vous rejouer ? (oui/non) ')
         res = input()
 
