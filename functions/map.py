@@ -14,45 +14,87 @@ from Colors import *
 format_prefix = "\033["
 position_suffix = "H"
 
+ul = "╔"
+ur = "╗"
+bl = "╚"
+br = "╝"
+c = "║"
+r = "═"
+cl = "╣"
+cr = "╠"
 
-def printAt(x, y, text, size):
-    print(f"{format_prefix}{y};{x+size}{position_suffix}{text}")
+map_height = 30
+map_width = 50
+map_margin = 4
+def printAt(x, y, text):
+    print(f"{format_prefix}{y};{x}{position_suffix}{text}")
 
+def printBoard():
+    range_y = map_height+map_margin+1
+    range_x = map_width+ map_margin*2
+    for y in range(range_y):
+        for x in range(range_x):
+            if y == 0 and x == 0:
+                printAt(x,y,ul)
+            elif y == 0 and x == range_x-1:
+                printAt(x,y,ur)
+            elif y == 0 and x >1:
+                printAt(x,y,r)
+            elif y == 3 and x == 0:
+                printAt(x,y,cr)
+            elif y == 3 and x == range_x-1:
+                printAt(x,y,cl)
+            elif y == 3 and x > 1:
+                printAt(x,y,r)
+            elif x == 0 and y >1:
+                printAt(x,y,c)
+            elif y == range_y-1 and x == 1:
+                printAt(x,y,bl)
+            elif y == range_y -1 and x>1 and x < range_x-1:
+                printAt(x,y,r)
+            elif y == range_y-1 and x == range_x-1:
+                printAt(x,y,br)
+            elif x == range_x-1 and y >1:
+                printAt(x,y,c)
 
 def printMap(settings, p):
+    printBoard()
     map_mattrix = settings['map']
     challenges = initChallenges()
-    print(f"Partie de Theya !")
     for y in range(len(map_mattrix)):
         for x in range(len(map_mattrix[y])):
             map_elem = map_mattrix[y][x]
-            back_color = ""
-            txt_color = ""
+            style = ""
             txt = " "
+            # Challenges
             if checkChallengesCollision(challenges, x, y):
-                # TODO: X Rouge
-                txt_color = TextColors.RED
+                style = TextColors.RED
                 txt = "X"
+            # Pierre
             elif map_elem == 1:
-                # TODO: BG Gris
-                back_color = BackgroundColors.WHITE
+                # back_color = BackgroundColors.WHITE
+                txt = "▲"
+            # Mer
             elif map_elem == 2:
-                # TODO: BG Bleu
-                back_color = BackgroundColors.CYAN
+                style = TextColors.BLUE
+                txt = "░"
+            # Arbre
             elif map_elem == 3:
-                # TODO: f Vert
-                txt_color = TextColors.GREEN
-                txt = "f"
+                style = TextColors.GREEN
+                txt = "░"
+            # Arbre 2
             elif map_elem == 4:
-                # TODO: petit char vert aussi
-                txt_color = TextColors.GREEN
-                txt = "F"
+                style = TextColors.GREEN
+                txt = "♣"
+            # Sable
             elif map_elem == 5:
-                # TODO: BG Jaune
-                back_color = BackgroundColors.YELLOW
+                style = TextColors.YELLOW
+                txt = "░"
+            # Joueur
             if x == p.posX and y == p.posY:
-                txt_color = TextColors.WHITE
+                style += TextColors.WHITE
                 txt = "a"
-            printAt(x+2, y+2, f'{back_color}{txt_color}{txt}{TextColors.RESET}{BackgroundColors.RESET}', 2)
-    print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
-    print(f'Position Y: {p.posY} | Position X: {p.posX}')
+            printAt(x+map_margin , y+map_margin , f'{style}{style}{txt}{TextColors.RESET}{BackgroundColors.RESET}')
+    # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
+    printAt(map_width//2-len(p.name),2, f"Partie de {p.name} !")
+    printAt(map_width//2//2, map_height+5,f'Position Y: {p.posY} | Position X: {p.posX}')
