@@ -73,4 +73,6 @@ else:
             initChallenges(reset)
             p = initPlayer(reset)
             p.name = getName()
+
 map_mattrix = initMap(p.seed)
+collision_numbers = "124"

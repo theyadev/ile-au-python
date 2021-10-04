@@ -14,6 +14,6 @@ def collision(x, y):
         pos = map_mattrix[p.posY+y][p.posX+x]
         if (p.posY+y == -1 or p.posX+x == -1):
             return True
-        return True if str(pos) in "12" else False
+        return True if str(pos) in collision_numbers else False
     except:
         return True
