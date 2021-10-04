@@ -1,6 +1,7 @@
 from settings import initChallenges
 from collision import checkChallengesCollision
 from Colors import *
+from settings import *
 
 '''
 0 = Terrain
@@ -57,9 +58,8 @@ def printBoard():
             elif x == range_x-1 and y >1:
                 printAt(x,y,c)
 
-def printMap(settings, p):
+def printMap():
     printBoard()
-    map_mattrix = settings['map']
     challenges = initChallenges()
     for y in range(len(map_mattrix)):
         for x in range(len(map_mattrix[y])):

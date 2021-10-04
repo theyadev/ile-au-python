@@ -1,4 +1,3 @@
-from settings import *
 import sys
 import time
 
@@ -7,8 +6,8 @@ sys.path.append('./functions/')
 sys.path.append('./minigames/')
 
 from userInput import userInput
+from settings import *
 from map import printMap
-from getName import getName
 from clear import clear
 
 
@@ -25,23 +24,6 @@ def writeAnimation(t):
 
 
 def startGame():
-    p = initPlayer()
-    reset = False
-    if p.name == None:
-        p.name = getName()
-    else:  
-        res = input(f"Voulez vous reprendre avec le profil de {p.name} ? ")
-
-        if res.lower() == "non" or res.lower() == "n":
-                res2 = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.name} ?! ")
-                if res2.lower() == "o" or res2.lower() == "oui":
-                    reset = True
-                    initChallenges(reset)
-                    p = initPlayer(reset)
-                    p.name = getName()
-    
-    map_mattrix = initMap(p.seed)
-        
     clear()
 
     textContinue = '\nAppuyez sur entrée pour continuer...'
@@ -53,8 +35,8 @@ def startGame():
     #for text in texts:
     #    writeAnimation(text)
     #input(textContinue)
-    printMap({ "map": map_mattrix}, p)
-    userInput(p, { "map": map_mattrix})
+    printMap()
+    userInput()
 
 
 if __name__ == '__main__':

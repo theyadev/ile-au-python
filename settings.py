@@ -1,7 +1,6 @@
 import json
+from getName import getName
 from random import randint, seed
-import sys
-sys.path.append('./Class/')
 from Player import *
 import time
 
@@ -58,3 +57,20 @@ def initPlayer(reset=False):
         with open("player.json") as p:
             data = json.load(p)
             return Player(data["name"], data['posX'], data["posY"], data['seed'])
+
+
+p = initPlayer()
+reset = False
+if p.name == None:
+    p.name = getName()
+else:  
+    res = input(f"Voulez vous reprendre avec le profil de {p.name} ? ")
+
+    if res.lower() == "non" or res.lower() == "n":
+        res2 = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.name} ?! ")
+        if res2.lower() == "o" or res2.lower() == "oui":
+            reset = True
+            initChallenges(reset)
+            p = initPlayer(reset)
+            p.name = getName()
+map_mattrix = initMap(p.seed)

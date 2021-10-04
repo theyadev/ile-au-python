@@ -1,3 +1,5 @@
+from settings import *
+
 def checkChallengesCollision(challenges, x ,y):
     returning_value = ""
     for c in challenges:
@@ -7,7 +9,7 @@ def checkChallengesCollision(challenges, x ,y):
             returning_value = c["name"]
     return returning_value
 
-def collision(x, y, p, map_mattrix):
+def collision(x, y):
     try:
         pos = map_mattrix[p.posY+y][p.posX+x]
         if (p.posY+y == -1 or p.posX+x == -1):

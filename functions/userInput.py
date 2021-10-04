@@ -1,14 +1,14 @@
 from clear import clear
 from save import save
-from settings import initChallenges
+from settings import *
 from collision import collision, checkChallengesCollision
 from startChallenge import startChallenge
 from map import printMap
 import msvcrt
 
-def move(x, y, p, settings):
-    map_mattrix = settings['map']
-    if collision(x, y, p, map_mattrix) == False:
+
+def move(x, y):
+    if collision(x, y) == False:
         p.posX += x
         p.posY += y
         challenge = checkChallengesCollision(
@@ -17,39 +17,39 @@ def move(x, y, p, settings):
             clear()
             startChallenge(challenge)
             clear()
-            printMap(settings, p)
-            userInput(p, settings)
+            printMap()
+            userInput()
         else:
-            printMap(settings, p)
-            userInput(p, settings)
+            printMap()
+            userInput()
     else:
-        userInput(p, settings)
+        userInput()
 
 
-def userInput(p, settings):
+def userInput():
     command = ""
     try:
         command = bytes.decode(msvcrt.getch()).lower()
     except:
-        return userInput(p, settings)
+        return userInput()
 
     if command == "l":
         clear()
         print('Sauvegarde en cours...')
-        save(p)
+        save()
         print("Quitter...")
         exit()
     elif command == "e":
         clear()
         print("Inventaire")
-        return userInput(p, settings)
+        return userInput()
     elif command == "q":
-        move(-1, 0, p, settings)
+        move(-1, 0)
     elif command == "d":
-        move(1, 0, p, settings)    
+        move(1, 0)
     elif command == "z":
-        move(0, -1, p, settings)
+        move(0, -1)
     elif command == "s":
-        move(0, 1, p, settings)
+        move(0, 1)
     else:
-        return userInput(p, settings)
+        return userInput()
