@@ -2,6 +2,7 @@ from settings import *
 import sys
 import time
 
+sys.path.append('./Class/')
 sys.path.append('./functions/')
 sys.path.append('./minigames/')
 

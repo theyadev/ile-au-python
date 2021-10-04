@@ -1,5 +1,6 @@
 from settings import initChallenges
 from collision import checkChallengesCollision
+from Colors import *
 
 '''
 0 = Terrain
@@ -10,36 +11,48 @@ from collision import checkChallengesCollision
 5 = Defi
 '''
 
+format_prefix = "\033["
+position_suffix = "H"
+
+
+def printAt(x, y, text, size):
+    print(f"{format_prefix}{y};{x+size}{position_suffix}{text}")
+
+
 def printMap(settings, p):
     map_mattrix = settings['map']
     challenges = initChallenges()
-    print((len(map_mattrix) + 5) * "\033[A" , end="")
-    map_str = ""
-    for i in range(len(map_mattrix)):
-        row = ""
-        for j in range(len(map_mattrix[i])): 
-            map_elem = map_mattrix[i][j]
-            if j == p["pos"]["x"] and i == p["pos"]["y"]:
-                if map_elem == 2:
-                    row += "🛳️"
-                else:
-                    row += "😁"
-            elif checkChallengesCollision(challenges, j ,i):
-                row += "❌"
-            elif map_elem == 0:
-                row += "  "
+    print(f"Partie de Theya !")
+    for y in range(len(map_mattrix)):
+        for x in range(len(map_mattrix[y])):
+            map_elem = map_mattrix[y][x]
+            back_color = ""
+            txt_color = ""
+            txt = " "
+            if checkChallengesCollision(challenges, x, y):
+                # TODO: X Rouge
+                txt_color = TextColors.RED
+                txt = "X"
             elif map_elem == 1:
-                row += "🔳"
+                # TODO: BG Gris
+                back_color = BackgroundColors.WHITE
             elif map_elem == 2:
-                row += "🟦"
+                # TODO: BG Bleu
+                back_color = BackgroundColors.CYAN
             elif map_elem == 3:
-                row += "🌴"
+                # TODO: f Vert
+                txt_color = TextColors.GREEN
+                txt = "f"
             elif map_elem == 4:
-                row += "🌳"
+                # TODO: petit char vert aussi
+                txt_color = TextColors.GREEN
+                txt = "F"
             elif map_elem == 5:
-                row += "🟡"
-        map_str += row + "\n"
-    print(f"Partie de {p['name']} !")
-    print(map_str)
+                # TODO: BG Jaune
+                back_color = BackgroundColors.YELLOW
+            if x == p['pos']['x'] and y == p['pos']['y']:
+                txt_color = TextColors.WHITE
+                txt = "a"
+            printAt(x+2, y+2, f'{back_color}{txt_color}{txt}{TextColors.RESET}{BackgroundColors.RESET}', 2)
     print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
     print(f'Position Y: {p["pos"]["y"]} | Position X: {p["pos"]["x"]}')
