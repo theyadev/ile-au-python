@@ -94,7 +94,7 @@ def printMap():
             if x == p.posX and y == p.posY:
                 style += TextColors.WHITE
                 txt = "a"
-            printAt(x+map_margin , y+map_margin , f'{style}{style}{txt}{TextColors.RESET}{BackgroundColors.RESET}')
+            printAt(x+map_margin , y+map_margin , f'{style}{txt}{TextColors.RESET}{BackgroundColors.RESET}')
     # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
     printAt(map_width//2-len(p.name),2, f"Partie de {p.name} !")
     printAt(map_width//2//2, map_height+5,f'Position Y: {p.posY} | Position X: {p.posX}')
