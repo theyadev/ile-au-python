@@ -39,7 +39,7 @@ def startGame():
                     p = initPlayer(reset)
                     p["name"] = getName()
     
-    M = initMap(p["seed"])
+    map_mattrix = initMap(p["seed"])
         
     clear()
 
@@ -52,8 +52,8 @@ def startGame():
     #for text in texts:
     #    writeAnimation(text)
     #input(textContinue)
-    printMap({ "map": M}, p)
-    userInput(p, { "map": M})
+    printMap({ "map": map_mattrix}, p)
+    userInput(p, { "map": map_mattrix})
 
 
 if __name__ == '__main__':
