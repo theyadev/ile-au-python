@@ -83,18 +83,24 @@ def printMap():
                 else:
                     printAt(x+2,y+2,"a", 2)
             elif checkChallengesCollision(challenges, x, y):
+                # TODO: X Rouge
                 printAt(x+2,y+2,"x", 2)
             elif map_elem == 0:
                 printAt(x+2,y+2," ", 2)
             elif map_elem == 1:
+                # TODO: BG Gris
                 printAt(x+2,y+2, "o", 2)
             elif map_elem == 2:
+                # TODO: BG Bleu
                 printAt(x+2,y+2,"m", 2)
             elif map_elem == 3:
+                # TODO: f Vert
                 printAt(x+2,y+2,"f", 2)
             elif map_elem == 4:
+                # TODO: petit char vert aussi
                 printAt(x+2,y+2,"f", 2)
             elif map_elem == 5:
+                # TODO: BG Jaune
                 printAt(x+2,y+2,"s", 2)
         map_str += row + "\n"
     print(f"Partie de Theya !")
