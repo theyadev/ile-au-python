@@ -52,7 +52,6 @@ def initPlayer(reset=False):
     if reset == True:
         with open("player.json", "w") as p:
             default_player = Player(None, 38, 24,round(time.time() * 1000))
-            print(default_player.toJson())
             json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
             return default_player
     else:
