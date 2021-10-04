@@ -9,8 +9,8 @@ def checkChallengesCollision(challenges, x ,y):
 
 def collision(x, y, p, map_mattrix):
     try:
-        pos = map_mattrix[p["pos"]["y"]+y][p["pos"]["x"]+x]
-        if (p["pos"]["y"]+y == -1 or p["pos"]["x"]+x == -1):
+        pos = map_mattrix[p.posY+y][p.posX+x]
+        if (p.posY+y == -1 or p.posX+x == -1):
             return True
         return True if str(pos) in "1" else False
     except:

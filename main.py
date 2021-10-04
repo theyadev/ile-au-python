@@ -27,20 +27,20 @@ def writeAnimation(t):
 def startGame():
     p = initPlayer()
     reset = False
-    if p["name"] == None:
-        p["name"] = getName()
+    if p.name == None:
+        p.name = getName()
     else:  
-        res = input(f"Voulez vous reprendre avec le profil de {p['name']} ? ")
+        res = input(f"Voulez vous reprendre avec le profil de {p.name} ? ")
 
         if res.lower() == "non" or res.lower() == "n":
-                res2 = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p['name']} ?! ")
+                res2 = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.name} ?! ")
                 if res2.lower() == "o" or res2.lower() == "oui":
                     reset = True
                     initChallenges(reset)
                     p = initPlayer(reset)
-                    p["name"] = getName()
+                    p.name = getName()
     
-    map_mattrix = initMap(p["seed"])
+    map_mattrix = initMap(p.seed)
         
     clear()
 

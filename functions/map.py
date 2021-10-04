@@ -50,9 +50,9 @@ def printMap(settings, p):
             elif map_elem == 5:
                 # TODO: BG Jaune
                 back_color = BackgroundColors.YELLOW
-            if x == p['pos']['x'] and y == p['pos']['y']:
+            if x == p.posX and y == p.posY:
                 txt_color = TextColors.WHITE
                 txt = "a"
             printAt(x+2, y+2, f'{back_color}{txt_color}{txt}{TextColors.RESET}{BackgroundColors.RESET}', 2)
     print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
-    print(f'Position Y: {p["pos"]["y"]} | Position X: {p["pos"]["x"]}')
+    print(f'Position Y: {p.posY} | Position X: {p.posX}')

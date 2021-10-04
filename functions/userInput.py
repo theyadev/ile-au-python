@@ -9,10 +9,10 @@ import msvcrt
 def move(x, y, p, settings):
     map_mattrix = settings['map']
     if collision(x, y, p, map_mattrix) == False:
-        p["pos"]["x"] += x
-        p["pos"]["y"] += y
+        p.posX += x
+        p.posY += y
         challenge = checkChallengesCollision(
-            initChallenges(), p["pos"]["x"], p["pos"]["y"])
+            initChallenges(), p.posX, p.posY)
         if challenge:
             clear()
             startChallenge(challenge)
@@ -46,13 +46,10 @@ def userInput(p, settings):
     elif command == "q":
         move(-1, 0, p, settings)
     elif command == "d":
-        move(1, 0, p, settings)
-        
+        move(1, 0, p, settings)    
     elif command == "z":
         move(0, -1, p, settings)
-        
     elif command == "s":
         move(0, 1, p, settings)
-        
     else:
         return userInput(p, settings)

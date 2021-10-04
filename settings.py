@@ -1,5 +1,8 @@
 import json
 from random import randint, seed
+import sys
+sys.path.append('./Class/')
+from Player import *
 import time
 
 def initMap(p_seed):
@@ -48,17 +51,11 @@ def initChallenges(reset=False):
 def initPlayer(reset=False):
     if reset == True:
         with open("player.json", "w") as p:
-            default_player = {
-                "name": None,
-                "pos": {
-                    "x": 38,
-                    "y": 24
-                },
-                "seed": round(time.time() * 1000)
-            }
-            json.dump(default_player, p, ensure_ascii=False, indent=4)
+            default_player = Player(None, 38, 24,round(time.time() * 1000))
+            print(default_player.toJson())
+            json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
             return default_player
     else:
         with open("player.json") as p:
             data = json.load(p)
-            return data
+            return Player(data["name"], data['posX'], data["posY"], data['seed'])
