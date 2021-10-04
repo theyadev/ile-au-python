@@ -1,7 +1,8 @@
 import json
+from settings import p
 def startChallenge(challenge_name):
     module = __import__(challenge_name)
-    player_name = "Theya"
+    player_name = p.name
     winner = module.startGame(player_name)
     if winner == player_name:
         print('Bravo !!! Vous avez gagner !')

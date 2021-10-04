@@ -1,5 +1,7 @@
 from settings import initChallenges
 from collision import checkChallengesCollision
+from Colors import *
+from settings import *
 
 '''
 0 = Terrain
@@ -10,36 +12,89 @@ from collision import checkChallengesCollision
 5 = Defi
 '''
 
-def printMap(settings, p):
-    map_mattrix = settings['map']
+format_prefix = "\033["
+position_suffix = "H"
+
+ul = "╔"
+ur = "╗"
+bl = "╚"
+br = "╝"
+c = "║"
+r = "═"
+cl = "╣"
+cr = "╠"
+
+map_height = 30
+map_width = 50
+map_margin = 4
+def printAt(x, y, text):
+    print(f"{format_prefix}{y};{x}{position_suffix}{text}")
+
+def printBoard():
+    range_y = map_height+map_margin+1
+    range_x = map_width+ map_margin*2
+    for y in range(range_y):
+        for x in range(range_x):
+            if y == 0 and x == 0:
+                printAt(x,y,ul)
+            elif y == 0 and x == range_x-1:
+                printAt(x,y,ur)
+            elif y == 0 and x >1:
+                printAt(x,y,r)
+            elif y == 3 and x == 0:
+                printAt(x,y,cr)
+            elif y == 3 and x == range_x-1:
+                printAt(x,y,cl)
+            elif y == 3 and x > 1:
+                printAt(x,y,r)
+            elif x == 0 and y >1:
+                printAt(x,y,c)
+            elif y == range_y-1 and x == 1:
+                printAt(x,y,bl)
+            elif y == range_y -1 and x>1 and x < range_x-1:
+                printAt(x,y,r)
+            elif y == range_y-1 and x == range_x-1:
+                printAt(x,y,br)
+            elif x == range_x-1 and y >1:
+                printAt(x,y,c)
+
+def printMap():
+    printBoard()
     challenges = initChallenges()
-    print((len(map_mattrix) + 5) * "\033[A" , end="")
-    map_str = ""
-    for i in range(len(map_mattrix)):
-        row = ""
-        for j in range(len(map_mattrix[i])): 
-            map_elem = map_mattrix[i][j]
-            if j == p["pos"]["x"] and i == p["pos"]["y"]:
-                if map_elem == 2:
-                    row += "🛳️"
-                else:
-                    row += "😁"
-            elif checkChallengesCollision(challenges, j ,i):
-                row += "❌"
-            elif map_elem == 0:
-                row += "  "
+    for y in range(len(map_mattrix)):
+        for x in range(len(map_mattrix[y])):
+            map_elem = map_mattrix[y][x]
+            style = ""
+            txt = " "
+            # Challenges
+            if checkChallengesCollision(challenges, x, y):
+                style = TextColors.RED
+                txt = "X"
+            # Pierre
             elif map_elem == 1:
-                row += "🔳"
+                # back_color = BackgroundColors.WHITE
+                txt = "▲"
+            # Mer
             elif map_elem == 2:
-                row += "🟦"
+                style = TextColors.BLUE
+                txt = "░"
+            # Arbre
             elif map_elem == 3:
-                row += "🌴"
+                style = TextColors.GREEN
+                txt = "░"
+            # Arbre 2
             elif map_elem == 4:
-                row += "🌳"
+                style = TextColors.GREEN
+                txt = "♣"
+            # Sable
             elif map_elem == 5:
-                row += "🟡"
-        map_str += row + "\n"
-    print(f"Partie de {p['name']} !")
-    print(map_str)
-    print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
-    print(f'Position Y: {p["pos"]["y"]} | Position X: {p["pos"]["x"]}')
+                style = TextColors.YELLOW
+                txt = "░"
+            # Joueur
+            if x == p.posX and y == p.posY:
+                style += TextColors.WHITE
+                txt = "a"
+            printAt(x+map_margin , y+map_margin , f'{style}{txt}{TextColors.RESET}{BackgroundColors.RESET}')
+    # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
+    printAt(map_width//2-len(p.name),2, f"Partie de {p.name} !")
+    printAt(map_width//2//2, map_height+5,f'Position Y: {p.posY} | Position X: {p.posX}')

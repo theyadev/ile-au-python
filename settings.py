@@ -1,6 +1,9 @@
 import json
+from getName import getName
 from random import randint, seed
+from Player import *
 import time
+
 
 def initMap(p_seed):
     M = []
@@ -9,12 +12,12 @@ def initMap(p_seed):
         data = json.load(mattrix)
         M = []
         for index in range(len(data)):
-            for i in data[index]:
-                for l in i:
+            for y in data[index]:
+                for l in y:
                     try:
                         if int(l) == 3:
-                            random_nmber = randint(0, 5)
-                            if random_nmber <= 4:
+                            random_nmber = randint(0, 10)
+                            if random_nmber <= 8:
                                 M[index].append(int(l))
                             else:
                                 M[index].append(4)
@@ -27,6 +30,8 @@ def initMap(p_seed):
     return M
 
 # TODO: Si challenges.json vide ou inexistant, le creer
+
+
 def initChallenges(reset=False):
     if reset == True:
         with open("challenges.json", "r+") as challenges:
@@ -45,20 +50,35 @@ def initChallenges(reset=False):
             return data
 
 # TODO: Si player.json vide ou inexistant, le creer
+
+
 def initPlayer(reset=False):
     if reset == True:
         with open("player.json", "w") as p:
-            default_player = {
-                "name": None,
-                "pos": {
-                    "x": 38,
-                    "y": 24
-                },
-                "seed": round(time.time() * 1000)
-            }
-            json.dump(default_player, p, ensure_ascii=False, indent=4)
+            default_player = Player(None, 38, 24, round(time.time() * 1000))
+            json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
             return default_player
     else:
         with open("player.json") as p:
             data = json.load(p)
-            return data
+            return Player(data["name"], data['posX'], data["posY"], data['seed'])
+
+
+p = initPlayer()
+reset = False
+if p.name == None:
+    p.name = getName()
+else:
+    res = input(f"Voulez vous reprendre avec le profil de {p.name} ? ")
+
+    if res.lower() == "non" or res.lower() == "n":
+        res2 = input(
+            f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.name} ?! ")
+        if res2.lower() == "o" or res2.lower() == "oui":
+            reset = True
+            initChallenges(reset)
+            p = initPlayer(reset)
+            p.name = getName()
+
+map_mattrix = initMap(p.seed)
+collision_numbers = "124"

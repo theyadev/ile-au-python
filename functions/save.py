@@ -1,7 +1,8 @@
 import json
+from settings import *
 
 
-def save(p):
+def save():
     with open('./player.json', 'w') as json_file:
-        json.dump(p, json_file, ensure_ascii=False, indent=4)
+        json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
     return

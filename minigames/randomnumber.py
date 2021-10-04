@@ -17,7 +17,7 @@ def startGame(player_name):
                     print("Plus haut !")
                 elif number > number_to_find:
                     print("Plus bas !")
-                elif number_to_find != numbers_to_find[len(numbers_to_find)-1]:
+                elif number_to_find != numbers_to_find[-1]:
                     print('\nBravo ! Nombre à deviner suivant.\n\n')
                 number_of_try += 1
             except:
