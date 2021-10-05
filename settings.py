@@ -1,9 +1,11 @@
 import json
-from getName import getName
+import os
 from random import randint, seed
 from Player import *
 import time
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def initMap(p_seed):
     M = []
@@ -67,7 +69,7 @@ def initPlayer(reset=False):
 p = initPlayer()
 reset = False
 if p.NAME == None:
-    p.NAME = getName()
+    p.getName()
 else:
     res = input(f"Voulez vous reprendre avec le profil de {p.NAME} ? ")
 
@@ -78,7 +80,7 @@ else:
             reset = True
             initChallenges(reset)
             p = initPlayer(reset)
-            p.NAME = getName()
+            p.getName()
 
 map_mattrix = initMap(p.SEED)
 collision_numbers = "124"
