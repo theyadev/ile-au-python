@@ -1,3 +1,4 @@
+from typing import Text
 from settings import initChallenges
 from collision import checkChallengesCollision
 from Colors import *
@@ -91,10 +92,10 @@ def printMap():
                 style = TextColors.YELLOW
                 txt = "░"
             # Joueur
-            if x == p.posX and y == p.posY:
+            if x == p.POS_X and y == p.POS_Y:
                 style += TextColors.WHITE
                 txt = "a"
-            printAt(x+map_margin , y+map_margin , f'{style}{txt}{TextColors.RESET}{BackgroundColors.RESET}')
+            printAt(x+map_margin , y+map_margin , f'{style}{txt}{TextColors.RESET_ALL}')
     # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
-    printAt(map_width//2-len(p.name),2, f"Partie de {p.name} !")
-    printAt(map_width//2//2, map_height+5,f'Position Y: {p.posY} | Position X: {p.posX}')
+    printAt(map_width//2-len(p.NAME),2, f"Partie de {p.NAME} !")
+    printAt(map_width//2//2, map_height+5,f'Position Y: {p.POS_Y} | Position X: {p.POS_X}')
