@@ -1,5 +1,4 @@
 import sys
-import time
 
 sys.path.append('./Class/')
 sys.path.append('./functions/')
@@ -7,23 +6,9 @@ sys.path.append('./minigames/')
 
 from userInput import userInput
 from settings import *
-from map import printMap
-from clear import clear
+from prints import printMap, printAnimation
 
-
-
-def writeAnimation(t):
-    for l in t:
-        print(l, end="", flush=True)
-        if l == ",":
-            time.sleep(0.1)
-        if l == "." or l =="!" or l =="?":
-            time.sleep(0.3)
-        else:
-            time.sleep(0.02)
-
-
-def startGame():
+def main():
     clear()
 
     textContinue = '\nAppuyez sur entrée pour continuer...'
@@ -33,11 +18,11 @@ def startGame():
              "Tu te redresses doucement, et, un peu aveuglé par le soleil, tu regardes autour de toi. D'un côté la mer… de l'autre un paysage sauvage, en partie steppe, en partie jungle. Assez loin, au-delà des arbres, tu penses apercevoir des montagnes.\n\n",
              ]
     #for text in texts:
-    #    writeAnimation(text)
+    #    printAnimation(text)
     #input(textContinue)
     printMap()
     userInput()
 
 
 if __name__ == '__main__':
-    startGame()
+    main()
