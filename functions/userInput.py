@@ -1,9 +1,8 @@
-from clear import clear
 from save import save
 from settings import *
 from collision import collision, checkChallengesCollision
 from startChallenge import startChallenge
-from map import printMap
+from prints import printMap
 import msvcrt
 
 
