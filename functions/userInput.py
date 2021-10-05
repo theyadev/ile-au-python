@@ -1,14 +1,19 @@
 from settings import *
 from collision import collision, checkChallengesCollision
 from startChallenge import startChallenge
-from prints import printMap
+from prints import printMap, printFoodAndStamina
 import msvcrt
+from time import sleep
 
 
 def move(x, y):
+    if p.STAMINA <= 0: userInput()
     if collision(x, y) == False:
         p.POS_X += x
         p.POS_Y += y
+        p.STAMINA -= 2 if p.STAMINA > 0 else 0
+        p.FOOD -= 0.25 if p.FOOD > 0 else 0
+        p.WATER -= 0.25 if p.WATER > 0 else 0
         challenge = checkChallengesCollision(
             initChallenges(), p.POS_X, p.POS_Y)
         if challenge:
@@ -37,6 +42,15 @@ def userInput():
         save()
         print("Quitter...")
         exit()
+    elif command == 'r':         
+        while p.STAMINA < 100:
+            if p.rest(1) == False: 
+                return userInput()
+            
+            printFoodAndStamina()
+            printMap()
+            time.sleep(1)
+        return userInput()
     elif command == "e":
         clear()
         print("Inventaire")

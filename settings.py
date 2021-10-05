@@ -65,7 +65,7 @@ def initPlayer(reset=False):
     else:
         with open("player.json") as p:
             data = json.load(p)
-            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'])
+            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'])
 
 
 def save():

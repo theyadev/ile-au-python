@@ -1,6 +1,9 @@
 {
-    "NAME": null,
-    "POS_X": 38,
-    "POS_Y": 24,
-    "SEED": 1633418995569
+    "NAME": "Theya",
+    "POS_X": 30,
+    "POS_Y": 6,
+    "SEED": 1633431909992,
+    "FOOD": 62.0,
+    "STAMINA": 56,
+    "WATER": 82.0
 }
