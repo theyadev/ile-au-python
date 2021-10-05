@@ -6,7 +6,7 @@ sys.path.append('./minigames/')
 
 from userInput import userInput
 from settings import *
-from prints import printMap, printAnimation
+from prints import printMap, printAnimation, printBoard
 
 def main():
     clear()
@@ -20,6 +20,7 @@ def main():
     #for text in texts:
     #    printAnimation(text)
     #input(textContinue)
+    printBoard()
     printMap()
     userInput()
 
