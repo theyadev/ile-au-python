@@ -9,10 +9,10 @@ import msvcrt
 
 def move(x, y):
     if collision(x, y) == False:
-        p.posX += x
-        p.posY += y
+        p.POS_X += x
+        p.POS_Y += y
         challenge = checkChallengesCollision(
-            initChallenges(), p.posX, p.posY)
+            initChallenges(), p.POS_X, p.POS_Y)
         if challenge:
             clear()
             startChallenge(challenge)

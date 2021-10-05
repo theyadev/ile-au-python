@@ -66,19 +66,19 @@ def initPlayer(reset=False):
 
 p = initPlayer()
 reset = False
-if p.name == None:
-    p.name = getName()
+if p.NAME == None:
+    p.NAME = getName()
 else:
-    res = input(f"Voulez vous reprendre avec le profil de {p.name} ? ")
+    res = input(f"Voulez vous reprendre avec le profil de {p.NAME} ? ")
 
     if res.lower() == "non" or res.lower() == "n":
         res2 = input(
-            f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.name} ?! ")
+            f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.NAME} ?! ")
         if res2.lower() == "o" or res2.lower() == "oui":
             reset = True
             initChallenges(reset)
             p = initPlayer(reset)
-            p.name = getName()
+            p.NAME = getName()
 
-map_mattrix = initMap(p.seed)
+map_mattrix = initMap(p.SEED)
 collision_numbers = "124"

@@ -1,13 +1,13 @@
 class Player:
     def __init__(self, name, x, y, seed):
-        self.name = name
-        self.posX = x
-        self.posY = y
-        self.seed = seed
+        self.NAME = name
+        self.POS_X = x
+        self.POS_Y = y
+        self.SEED = seed
     def toJson(self):
         return {
-            "name": self.name,
-            "posX": self.posX,
-            "posY": self.posY,
-            "seed": self.seed
+            "NAME": self.NAME,
+            "POS_X": self.POS_X,
+            "POS_Y": self.POS_Y,
+            "SEED": self.SEED
         }
