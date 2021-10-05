@@ -11,3 +11,15 @@ class Player:
             "POS_Y": self.POS_Y,
             "SEED": self.SEED
         }
+    def getName(self):
+        new_name = input(f"Comment t'apelles-tu ? ")
+        try:
+            new_name = int(new_name)
+            print('Le nom ne doit pas contenir de chiffres !\n\n')
+            return self.getName()
+        except:
+            if (len(new_name) < 3):
+                print("Le nom doit contenir plus de 2 caractères !\n\n")
+                return self.getName()
+            else:
+                self.NAME = new_name
