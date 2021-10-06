@@ -1,33 +1,20 @@
 from settings import *
-from collision import collision, checkChallengesCollision
 from startChallenge import startChallenge
-from prints import printMap, printFoodAndStamina
+from prints import printMap, printFoodAndStamina, printBoard
 import msvcrt
 from time import sleep
 
-
-def move(x, y):
-    if p.STAMINA <= 0: userInput()
-    if collision(x, y) == False:
-        p.POS_X += x
-        p.POS_Y += y
-        p.STAMINA -= 2 if p.STAMINA > 0 else 0
-        p.FOOD -= 0.25 if p.FOOD > 0 else 0
-        p.WATER -= 0.25 if p.WATER > 0 else 0
-        challenge = checkChallengesCollision(
-            initChallenges(), p.POS_X, p.POS_Y)
-        if challenge:
-            clear()
-            startChallenge(challenge)
-            clear()
-            printMap()
-            userInput()
-        else:
-            printMap()
-            userInput()
+def useMovement(movement):
+    if movement == False:
+        printMap()
+        return userInput()
     else:
-        userInput()
-
+        clear()
+        startChallenge(movement)
+        clear()
+        printBoard()
+        printMap()
+        return userInput()
 
 def userInput():
     command = ""
@@ -56,12 +43,16 @@ def userInput():
         print("Inventaire")
         return userInput()
     elif command == "q":
-        move(-1, 0)
+        movement = p.move(-1, 0, initChallenges(), map_mattrix)
+        useMovement(movement)
     elif command == "d":
-        move(1, 0)
+        movement = p.move(1, 0, initChallenges(), map_mattrix)
+        useMovement(movement)
     elif command == "z":
-        move(0, -1)
+        movement = p.move(0, -1, initChallenges(), map_mattrix)
+        useMovement(movement)
     elif command == "s":
-        move(0, 1)
+        movement = p.move(0, 1, initChallenges(), map_mattrix)
+        useMovement(movement)
     else:
         return userInput()
