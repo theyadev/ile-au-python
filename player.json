@@ -1,6 +1,9 @@
 {
-    "name": "Theo",
-    "posX": 38,
-    "posY": 24,
-    "seed": 1633333168562
+    "NAME": "Theya",
+    "POS_X": 30,
+    "POS_Y": 6,
+    "SEED": 1633431909992,
+    "FOOD": 62.0,
+    "STAMINA": 56,
+    "WATER": 82.0
 }

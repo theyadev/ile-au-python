@@ -8,6 +8,7 @@ class TextColors:
     CYAN    = '\033[36m'
     WHITE   = '\033[37m'
     RESET   = '\033[39m'
+    RESET_ALL   = '\033[0m'
 
 class BackgroundColors:
     BLACK   = '\033[40m'
@@ -19,3 +20,4 @@ class BackgroundColors:
     CYAN    = '\033[46m'
     WHITE   = '\033[47m'
     RESET   = '\033[49m'
+    RESET_ALL   = '\033[0m'

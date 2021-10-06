@@ -1,8 +1,12 @@
 import json
-from getName import getName
+import os
 from random import randint, seed
 from Player import *
 import time
+
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def initMap(p_seed):
@@ -61,24 +65,27 @@ def initPlayer(reset=False):
     else:
         with open("player.json") as p:
             data = json.load(p)
-            return Player(data["name"], data['posX'], data["posY"], data['seed'])
+            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'])
+
+
+def save():
+    with open('./player.json', 'w') as json_file:
+        json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
+    return
 
 
 p = initPlayer()
-reset = False
-if p.name == None:
-    p.name = getName()
+if p.NAME == None:
+    p.getName()
 else:
-    res = input(f"Voulez vous reprendre avec le profil de {p.name} ? ")
+    continue_game = input(f"Voulez vous reprendre avec le profil de {p.NAME} ? ").lower()
 
-    if res.lower() == "non" or res.lower() == "n":
-        res2 = input(
-            f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.name} ?! ")
-        if res2.lower() == "o" or res2.lower() == "oui":
-            reset = True
-            initChallenges(reset)
-            p = initPlayer(reset)
-            p.name = getName()
+    if continue_game == "non" or continue_game == "n":
+        start_new_game = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.NAME} ?! ").lower()
+        if start_new_game == "o" or start_new_game == "oui":
+            initChallenges(True)
+            p = initPlayer(True)
+            p.getName()
 
-map_mattrix = initMap(p.seed)
+map_mattrix = initMap(p.SEED)
 collision_numbers = "124"
