@@ -1,4 +1,4 @@
-from time import sleep
+from challengesCollision import checkChallengesCollision
 class Player:
     def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100):
         self.NAME = name
@@ -30,10 +30,35 @@ class Player:
                 return self.getName()
             else:
                 self.NAME = new_name
+    def collision(self, x, y, map_m):
+        try:
+            pos = map_m[self.POS_Y+y][self.POS_X+x]
+            if (self.POS_Y+y == -1 or self.POS_X+x == -1):
+                return True
+            
+            return True if str(pos) in "124" else False
+        except:
+            return True
+    def move(self, x, y, challenges, map_m):
+        if self.STAMINA <= 0: return False
+        if self.collision(x, y, map_m) == False:
+            self.POS_X += x
+            self.POS_Y += y
+            self.STAMINA -= 2 if self.STAMINA > 0 else 0
+            self.FOOD -= 0.05 if self.FOOD > 0 else 0
+            self.WATER -= 0.25 if self.WATER > 0 else 0
+            challenge = checkChallengesCollision(
+                challenges, self.POS_X, self.POS_Y)
+            if challenge:
+                return challenge
+            else:
+                return False
+        else:
+            return False
     def rest(self, hours):
-        if self.FOOD - 2 <= 0: return False
+        if self.FOOD - 1 <= 0: return False
         for i in range(round(hours)):
-            self.FOOD -= 2
+            self.FOOD -= 1
             if self.STAMINA + 10 > 100:
                 self.STAMINA = 100
             else:
