@@ -28,6 +28,12 @@ class Player:
             "WATER": self.WATER,
             "INVENTORY": self.inventoryToJson()
         }
+
+    def getIndexItem(self, x,y, random_items):
+        for index,item in enumerate(random_items):
+            if item[1] == x and item[2] == y:
+                return index 
+        return False
     def getName(self):
         new_name = input(f"Comment t'apelles-tu ? ")
         try:
@@ -49,11 +55,16 @@ class Player:
             return True if str(pos) in "124" else False
         except:
             return True
-    def move(self, x, y, challenges, map_m):
+    def move(self, x, y, challenges, map_m, random_items, items):
         if self.STAMINA <= 0: return False
         if self.collision(x, y, map_m) == False:
             self.POS_X += x
             self.POS_Y += y
+            index_item = self.getIndexItem(self.POS_X,self.POS_Y,random_items)
+            if index_item:
+                self.INVENTORY[random_items[index_item][0]].QUANTITY += 1
+                random_items.pop(index_item)
+
             self.STAMINA -= 2 if self.STAMINA > 0 else 0
             self.FOOD -= 0.05 if self.FOOD > 0 else 0
             self.WATER -= 0.25 if self.WATER > 0 else 0

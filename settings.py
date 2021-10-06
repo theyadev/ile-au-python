@@ -85,8 +85,11 @@ def spawnItems():
         if str(i) in random_ones:
             random_nb = randint(10, 20)
             for j in range(random_nb):
-                random_x = randint(0, len(map_mattrix[0]))
-                random_y = randint(0, len(map_mattrix))
+                random_x = 5
+                random_y = 0
+                while str(map_mattrix[random_y][random_x]) in "124":
+                    random_x = randint(0, len(map_mattrix[0])-  1)
+                    random_y = randint(0, len(map_mattrix) - 1)
                 random_items.append((i, random_x, random_y))
     return random_items
 
