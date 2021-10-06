@@ -61,7 +61,7 @@ def initItems():
         items_list = []
         items = json.load(items_json)
         for item in items:
-            items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0))
+            items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0, item['CHAR']))
         return items_list
 
 def initPlayer(reset=False):
@@ -74,8 +74,21 @@ def initPlayer(reset=False):
     else:
         with open("player.json") as p:
             data = json.load(p)
-            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'])for item in data['INVENTORY']])
+            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'])for item in data['INVENTORY']])
 
+def spawnItems():
+    seed(p.SEED)
+    items_list = initItems()
+    random_ones = '01'
+    random_items = []
+    for i in range(len(items_list)):
+        if str(i) in random_ones:
+            random_nb = randint(10, 20)
+            for j in range(random_nb):
+                random_x = randint(0, len(map_mattrix[0]))
+                random_y = randint(0, len(map_mattrix))
+                random_items.append((i, random_x, random_y))
+    return random_items
 
 def save():
     with open('./player.json', 'w') as json_file:
@@ -83,8 +96,8 @@ def save():
     return
 
 p = initPlayer()
-map_mattrix = initMap(p.SEED)
 collision_numbers = "124"
+
 
 clear()
 os.system("mode con cols=100 lines=40")
@@ -99,4 +112,7 @@ else:
             initChallenges(True)
             p = initPlayer(True)
             p.getName()
+
+map_mattrix = initMap(p.SEED)
+random_items = spawnItems()
 clear()
