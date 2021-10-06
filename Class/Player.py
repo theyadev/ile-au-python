@@ -14,7 +14,8 @@ class Player:
                 "NAME": item.NAME,
                 "DESC": item.DESC,
                 "WEIGHT": item.WEIGHT,
-                "QUANTITY": item.QUANTITY
+                "QUANTITY": item.QUANTITY,
+                "CHAR": item.CHAR
             } for item in self.INVENTORY]
     def toJson(self):
         return {
