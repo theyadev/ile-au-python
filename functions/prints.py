@@ -37,7 +37,8 @@ board_height = map_height+map_margin+1
 
 range_x = map_width + map_margin*2
 
-info_height = 8
+info_height = 7
+info_text = "Statistiques"
 
 food_name = "Nourriture"
 pos_food_y = 4
@@ -48,7 +49,7 @@ pos_stamina_y = pos_food_y+1
 water_name = "Soif"
 pos_water_y = pos_stamina_y+1
 
-
+inv_text = "Inventaire"
 inv_size = 15
 
 
@@ -91,10 +92,23 @@ def printBoard():
                 if x == 0:
                     printAt(x, y, vert_right)
                 elif x == range_x-1:
-                    printAt(x, y, vert_left)
+                    printAt(x, y, cross)
                 elif x > 1 and x < range_x:
                     printAt(x, y, horizontal)
+                elif x > 1 and x < board_width - 1:
+                    printAt(x, y, horizontal)
+                elif x == board_width - 1:
+                    printAt(x,y, vert_left)
             elif y == info_height:
+                if x == range_x-1:
+                    printAt(x, y, vert_right)
+                elif x == board_width-1:
+                    printAt(x, y, vert_left)
+                elif x >= range_x:
+                    printAt(x, y, horizontal)
+                elif x == 0:
+                    printAt(x, y, vertical)
+            elif y == info_height + 2:
                 if x == range_x-1:
                     printAt(x, y, vert_right)
                 elif x == board_width-1:
@@ -123,6 +137,14 @@ def printBoard():
                     printAt(x, y, horizontal)
                 elif x == board_width-1:
                     printAt(x, y, bot_right)
+    # Partie de
+    printAt(map_width//2-len(p.NAME), 2, f"Partie de {p.NAME}!")
+
+    # Statistiques
+    printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(info_text)//2), 2, f"{info_text}")
+    
+    #Inventaire
+    printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(inv_text)//2), info_height+1, f"{inv_text}")
 
 
 def printFoodAndStamina():
@@ -131,6 +153,12 @@ def printFoodAndStamina():
     printAt(range_x+1, pos_stamina_y, f"{stamina_name}{'.' * (len(longest_stat)+ 1-len(stamina_name))}│{TextColors.BLACK}{BackgroundColors.YELLOW}{'∙'*(int(round(p.STAMINA/5)))}{BackgroundColors.RESET_ALL}{f'{BackgroundColors.WHITE + TextColors.BLACK}∙{BackgroundColors.RESET_ALL}'*(20 - int(round(p.STAMINA/5)))}│ ({round(p.STAMINA)}) ")
     printAt(range_x+1, pos_water_y, f"{water_name}{'.' * (len(longest_stat)+ 1-len(water_name))}│{TextColors.BLACK}{BackgroundColors.CYAN}{'∙'*(int(round(p.WATER/5)))}{BackgroundColors.RESET_ALL}{f'{BackgroundColors.WHITE + TextColors.BLACK}∙{BackgroundColors.RESET_ALL}'*(20 - int(round(p.WATER/5)))}│ ({round(p.WATER)}) ")
 
+
+def getIndexItem(x,y):
+    for index,item in enumerate(random_items):
+        if item[1] == x and item[2] == y:
+            return index 
+    return False
 
 def printMap():
     printFoodAndStamina()
@@ -144,6 +172,11 @@ def printMap():
             if checkChallengesCollision(challenges, x, y):
                 style = TextColors.RED
                 txt = "X"
+            elif getIndexItem(x,y):
+                index = getIndexItem(x,y)
+                index_item = random_items[index][0]
+                items = initItems()
+                txt = items[index_item].CHAR
             # Pierre
             elif map_elem == 1:
                 # back_color = BackgroundColors.WHITE
@@ -171,10 +204,12 @@ def printMap():
             printAt(x+map_margin, y+map_margin,
                     f'{style}{txt}{TextColors.RESET_ALL}')
     # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
-    printAt(map_width//2-len(p.NAME), 2, f"Partie de {p.NAME}!")
     printAt(map_width//2//2, map_height+5,
             f'Y: {p.POS_Y} | X: {p.POS_X} | F: {round(p.FOOD)} | S: {round(p.STAMINA)} | W: {round(p.WATER)}\033[K')
-
+    for item in p.INVENTORY:
+        if item.QUANTITY == 0:
+            continue
+        print(item.NAME, item.QUANTITY)
 
 def printAnimation(text):
     for letter in text:
