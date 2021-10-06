@@ -72,8 +72,9 @@ def save():
     with open('./player.json', 'w') as json_file:
         json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
     return
-
-
+    
+clear()
+os.system("mode con cols=100 lines=40")
 p = initPlayer()
 if p.NAME == None:
     p.getName()
