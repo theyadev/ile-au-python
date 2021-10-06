@@ -1,0 +1,11 @@
+[{
+        "NAME": "Bouteille d'O",
+        "DESC": "Boire",
+        "WEIGHT": 10
+    },
+    {
+        "NAME": "Gigôt d'AgnO",
+        "DESC": "Manger",
+        "WEIGHT": 25
+    }
+]

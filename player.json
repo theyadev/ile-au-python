@@ -1,9 +1,23 @@
 {
     "NAME": "Theya",
-    "POS_X": 41,
-    "POS_Y": 7,
-    "SEED": 1633508162764,
-    "FOOD": 87.50000000000014,
+    "POS_X": 38,
+    "POS_Y": 24,
+    "SEED": 1633525029597,
+    "FOOD": 100,
     "STAMINA": 100,
-    "WATER": 87.5
+    "WATER": 100,
+    "INVENTORY": [
+        {
+            "NAME": "Bouteille d'O",
+            "DESC": "Boire",
+            "WEIGHT": 10,
+            "QUANTITY": 0
+        },
+        {
+            "NAME": "Gigôt d'AgnO",
+            "DESC": "Manger",
+            "WEIGHT": 25,
+            "QUANTITY": 0
+        }
+    ]
 }
