@@ -1,6 +1,6 @@
 from time import sleep
 from settings import initChallenges
-from collision import checkChallengesCollision
+from challengesCollision import checkChallengesCollision
 from Colors import *
 from settings import *
 
@@ -25,40 +25,63 @@ horizontal = "═"
 vert_left = "╣"
 vert_right = "╠"
 horizontal_bot = "╦"
+horizontal_up = "╩"
 cross ="╬"
 
-board_size = 100
-
-map_height = 30
-map_width = 50
+map_height = len(map_mattrix)
+map_width = len(map_mattrix[0])
 map_margin = 4
 
-range_y = map_height+map_margin+1
+board_width = map_width*2
+board_height = map_height+map_margin+1
+
 range_x = map_width+ map_margin*2
 
-food_stam_size = 9
-pos_water_y = 7
-pos_stamina_y = 5
-pos_food_y = 3
+info_height = 8
+
+food_name = "Nourriture"
+pos_food_y = 4
+
+stamina_name = "Énergie"
+pos_stamina_y = pos_food_y+1
+
+water_name = "Soif"
+pos_water_y = pos_stamina_y+1
+
+
+
+inv_size =  15
+
+def getLongestStat():
+    if len(water_name) > len(stamina_name) and len(water_name) > len(food_name):
+        return water_name
+    elif len(stamina_name) > len(water_name) and len(stamina_name) > len(food_name):
+        return stamina_name
+    elif len(food_name) > len(water_name) and len(food_name) > len(stamina_name):
+        return food_name
 
 def printAt(x, y, text):
     print(f"{format_prefix}{y};{x}{position_suffix}{text}")
 
 def printBoard():
-    for y in range(range_y):
-        for x in range(board_size):
+    for y in range(board_height):
+        for x in range(board_width):
             if x == 0 or x == range_x-1:
                 if y >1:
                     printAt(x,y,vertical)
-            if x == board_size-1:
-                if 1<y<food_stam_size:
+            if x == board_width-1:
+                if 1<y<info_height:
+                    printAt(x,y,vertical)
+                elif 1<y<info_height + inv_size:
+                    printAt(x,y,vertical)
+                elif 1<y<board_height:
                     printAt(x,y,vertical)
             if y == 0:
                 if x == 0:
                     printAt(x,y,up_left)
                 elif x == range_x-1:
                     printAt(x,y,horizontal_bot)
-                elif x == board_size-1:
+                elif x == board_width-1:
                     printAt(x,y, up_right)
                 elif x > 1:
                     printAt(x,y,horizontal)
@@ -69,27 +92,40 @@ def printBoard():
                     printAt(x,y,vert_left)
                 elif x > 1 and x < range_x:
                     printAt(x,y,horizontal)
-            elif y == food_stam_size:
+            elif y == info_height:
                 if x == range_x-1:
                     printAt(x,y, vert_right)
-                elif x == board_size-1:
-                    printAt(x,y,bot_right)
+                elif x == board_width-1:
+                    printAt(x,y,vert_left)
                 elif x >= range_x:
                     printAt(x,y,horizontal)
                 elif x == 0: printAt(x,y,vertical)
-            elif y == range_y-1:
+            elif y == info_height + inv_size:
+                if x == range_x-1:
+                    printAt(x,y, vert_right)
+                elif x == board_width-1:
+                    printAt(x,y,vert_left)
+                elif x >= range_x:
+                    printAt(x,y,horizontal)
+                elif x == 0: printAt(x,y,vertical)
+            elif y == board_height-1:
                 if x == 1:
                     printAt(x,y,bot_left)
                 elif x>1 and x < range_x-1:
                     printAt(x,y,horizontal)
                 elif x == range_x-1:
+                    printAt(x,y,horizontal_up)
+                elif x >= range_x and x < board_width-1:
+                    printAt(x,y,horizontal)
+                elif x == board_width-1:
                     printAt(x,y,bot_right)
 
 
 def printFoodAndStamina():
-    printAt(range_x+1, pos_food_y, f"Nourriture: {BackgroundColors.RED}{' '*(int(round(p.FOOD/5)))}{BackgroundColors.RESET}{' '*(20-int(round(p.FOOD/5)))}")
-    printAt(range_x+1, pos_stamina_y, f"Energie: {BackgroundColors.YELLOW}{' '*(int(round(p.STAMINA/5)))}{BackgroundColors.RESET}{' '*(20 - int(round(p.STAMINA/5)))}")
-    printAt(range_x+1, pos_water_y, f"Soif: {BackgroundColors.CYAN}{' '*(int(round(p.WATER/5)))}{BackgroundColors.RESET}{' '*(20 - int(round(p.WATER/5)))}")
+    longest_stat = getLongestStat() 
+    printAt(range_x+1, pos_food_y, f"{food_name}{'.' * (len(longest_stat)+ 1-len(food_name))} {TextColors.BLACK}{BackgroundColors.RED}{'●'*(int(round(p.FOOD/5)))}{BackgroundColors.RESET_ALL}{' '*(20-int(round(p.FOOD/5)))} | {round(p.FOOD)}  ")
+    printAt(range_x+1, pos_stamina_y, f"{stamina_name}{'.' * (len(longest_stat)+ 1-len(stamina_name))} {TextColors.BLACK}{BackgroundColors.YELLOW}{'●'*(int(round(p.STAMINA/5)))}{BackgroundColors.RESET_ALL}{' '*(20 - int(round(p.STAMINA/5)))} | {round(p.STAMINA)}  ")
+    printAt(range_x+1, pos_water_y, f"{water_name}{'.' * (len(longest_stat)+ 1-len(water_name))} {TextColors.BLACK}{BackgroundColors.CYAN}{'●'*(int(round(p.WATER/5)))}{BackgroundColors.RESET_ALL}{' '*(20 - int(round(p.WATER/5)))} | {round(p.WATER)}  ")
 
 def printMap():
     printFoodAndStamina()
