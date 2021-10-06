@@ -1,6 +1,6 @@
 from challengesCollision import checkChallengesCollision
 class Player:
-    def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100):
+    def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100, inventory = []):
         self.NAME = name
         self.POS_X = x
         self.POS_Y = y
@@ -8,6 +8,14 @@ class Player:
         self.FOOD = int(food)
         self.STAMINA = int(stamina)
         self.WATER = int(water)
+        self.INVENTORY = inventory
+    def inventoryToJson(self):
+        return [{
+                "NAME": item.NAME,
+                "DESC": item.DESC,
+                "WEIGHT": item.WEIGHT,
+                "QUANTITY": item.QUANTITY
+            } for item in self.INVENTORY]
     def toJson(self):
         return {
             "NAME": self.NAME,
@@ -16,7 +24,8 @@ class Player:
             "SEED": self.SEED,
             "FOOD": self.FOOD,
             "STAMINA": self.STAMINA,
-            "WATER": self.WATER
+            "WATER": self.WATER,
+            "INVENTORY": self.inventoryToJson()
         }
     def getName(self):
         new_name = input(f"Comment t'apelles-tu ? ")

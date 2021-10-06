@@ -1,7 +1,8 @@
 import json
 import os
 from random import randint, seed
-from Player import *
+from Player import Player
+from Item import Item
 import time
 
 
@@ -55,27 +56,38 @@ def initChallenges(reset=False):
 
 # TODO: Si player.json vide ou inexistant, le creer
 
+def initItems():
+    with open('items.json', encoding="utf-8") as items_json:
+        items_list = []
+        items = json.load(items_json)
+        for item in items:
+            items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0))
+        return items_list
 
 def initPlayer(reset=False):
     if reset == True:
-        with open("player.json", "w") as p:
-            default_player = Player(None, 38, 24, round(time.time() * 1000))
+        with open("player.json", "w", encoding="utf-8") as p:
+            items = initItems()
+            default_player = Player(None, 38, 24, round(time.time() * 1000), inventory=items)
             json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
             return default_player
     else:
         with open("player.json") as p:
             data = json.load(p)
-            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'])
+            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'])for item in data['INVENTORY']])
 
 
 def save():
     with open('./player.json', 'w') as json_file:
         json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
     return
-    
+
+p = initPlayer()
+map_mattrix = initMap(p.SEED)
+collision_numbers = "124"
+
 clear()
 os.system("mode con cols=100 lines=40")
-p = initPlayer()
 if p.NAME == None:
     p.getName()
 else:
@@ -87,6 +99,4 @@ else:
             initChallenges(True)
             p = initPlayer(True)
             p.getName()
-
-map_mattrix = initMap(p.SEED)
-collision_numbers = "124"
+clear()
