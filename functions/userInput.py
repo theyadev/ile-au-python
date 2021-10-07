@@ -43,16 +43,16 @@ def userInput():
         print("Inventaire")
         return userInput()
     elif command == "q":
-        movement = p.move(-1, 0, initChallenges(), map_mattrix, random_items, initItems())
+        movement = p.move(-1, 0, initChallenges())
         useMovement(movement)
     elif command == "d":
-        movement = p.move(1, 0, initChallenges(), map_mattrix, random_items, initItems())
+        movement = p.move(1, 0, initChallenges())
         useMovement(movement)
     elif command == "z":
-        movement = p.move(0, -1, initChallenges(), map_mattrix, random_items, initItems())
+        movement = p.move(0, -1, initChallenges())
         useMovement(movement)
     elif command == "s":
-        movement = p.move(0, 1, initChallenges(), map_mattrix, random_items, initItems())
+        movement = p.move(0, 1, initChallenges())
         useMovement(movement)
     else:
         return userInput()
