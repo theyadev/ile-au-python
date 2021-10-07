@@ -74,7 +74,7 @@ def initPlayer(reset=False):
     else:
         with open("./Data/player.json") as p:
             data = json.load(p)
-            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'])for item in data['INVENTORY']])
+            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
 
 def spawnItems():
     seed(p.SEED)
@@ -87,9 +87,9 @@ def spawnItems():
             for j in range(random_nb):
                 random_x = 5
                 random_y = 0
-                while str(map_mattrix[random_y][random_x]) in "1249":
-                    random_x = randint(0, len(map_mattrix[0])-  1)
-                    random_y = randint(0, len(map_mattrix) - 1)
+                while str(p.MAP_MATTRIX[random_y][random_x]) in "1249":
+                    random_x = randint(0, len(p.MAP_MATTRIX[0])-  1)
+                    random_y = randint(0, len(p.MAP_MATTRIX) - 1)
                 random_items.append((i, random_x, random_y))
     return random_items
 
@@ -114,8 +114,8 @@ else:
         if start_new_game == "o" or start_new_game == "oui":
             initChallenges(True)
             p = initPlayer(True)
+            p.MAP_MATTRIX = initMap(p.SEED)
+            p.RANDOM_ITEMS = spawnItems()
             p.getName()
 
-map_mattrix = initMap(p.SEED)
-random_items = spawnItems()
 clear()
