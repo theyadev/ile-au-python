@@ -13,7 +13,7 @@ def clear():
 def initMap(p_seed):
     M = []
     seed(p_seed)
-    with open('map.json') as mattrix:
+    with open('./Data/map.json') as mattrix:
         data = json.load(mattrix)
         M = []
         for index in range(len(data)):
@@ -39,7 +39,7 @@ def initMap(p_seed):
 
 def initChallenges(reset=False):
     if reset == True:
-        with open("challenges.json", "r+") as challenges:
+        with open("./Data/challenges.json", "r+") as challenges:
             data = json.load(challenges)
 
             for index in range(len(data)):
@@ -50,14 +50,14 @@ def initChallenges(reset=False):
             challenges.truncate()
             return data
     else:
-        with open("challenges.json") as challenges:
+        with open("./Data/challenges.json") as challenges:
             data = json.load(challenges)
             return data
 
 # TODO: Si player.json vide ou inexistant, le creer
 
 def initItems():
-    with open('items.json', encoding="utf-8") as items_json:
+    with open('./Data/items.json', encoding="utf-8") as items_json:
         items_list = []
         items = json.load(items_json)
         for item in items:
@@ -66,13 +66,13 @@ def initItems():
 
 def initPlayer(reset=False):
     if reset == True:
-        with open("player.json", "w", encoding="utf-8") as p:
+        with open("./Data/player.json", "w", encoding="utf-8") as p:
             items = initItems()
             default_player = Player(None, 38, 24, round(time.time() * 1000), inventory=items)
             json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
             return default_player
     else:
-        with open("player.json") as p:
+        with open("./Data/player.json") as p:
             data = json.load(p)
             return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'])for item in data['INVENTORY']])
 
@@ -83,18 +83,18 @@ def spawnItems():
     random_items = []
     for i in range(len(items_list)):
         if str(i) in random_ones:
-            random_nb = randint(10, 20)
+            random_nb = randint(5, 15)
             for j in range(random_nb):
                 random_x = 5
                 random_y = 0
-                while str(map_mattrix[random_y][random_x]) in "124":
+                while str(map_mattrix[random_y][random_x]) in "1249":
                     random_x = randint(0, len(map_mattrix[0])-  1)
                     random_y = randint(0, len(map_mattrix) - 1)
                 random_items.append((i, random_x, random_y))
     return random_items
 
 def save():
-    with open('./player.json', 'w') as json_file:
+    with open('./Data/player.json', 'w') as json_file:
         json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
     return
 
