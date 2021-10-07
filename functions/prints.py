@@ -13,58 +13,6 @@ from settings import *
 5 = Defi
 '''
 
-format_prefix = "\033["
-position_suffix = "H"
-
-up_left = "╔"
-up_right = "╗"
-bot_left = "╚"
-bot_right = "╝"
-vertical = "║"
-horizontal = "═"
-vert_left = "╣"
-vert_right = "╠"
-horizontal_bot = "╦"
-horizontal_up = "╩"
-cross = "╬"
-
-commands = {
-    "z": "Haut",
-    "q": "Gauche",
-    "s": "Bas",
-    "d": "Droite",
-    "e": "Inventaire",
-    "r": "Repos",
-    "l": "Quitter"
-}
-
-map_height = len(p.MAP_MATTRIX)
-map_width = len(p.MAP_MATTRIX[0])
-map_margin = 4
-
-board_width = map_width*2
-board_height = map_height+map_margin+1
-
-range_x = map_width + map_margin*2
-
-info_height = 7
-info_text = "Statistiques"
-
-food_name = "Nourriture"
-pos_food_y = 4
-
-stamina_name = "Énergie"
-pos_stamina_y = pos_food_y+1
-
-water_name = "Soif"
-pos_water_y = pos_stamina_y+1
-
-inv_text = "Inventaire"
-inv_height = board_height - info_height - len(commands) - 4
-
-commands_text = "Commandes"
-
-
 def getLongestStat():
     if len(water_name) > len(stamina_name) and len(water_name) > len(food_name):
         return water_name
@@ -193,10 +141,18 @@ def printInventory():
     for item in p.INVENTORY:
         if item.QUANTITY == 0:
             continue
-        printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"{item.NAME} x{item.QUANTITY}")
+        printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"{item.NAME} x{item.QUANTITY}     ")
         curr_row += 1
-    too_heavy = f" You are too Heavy ! " if weight > p.MAX_WEIGHT else ''
-    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC + too_heavy), info_height + inv_height-1, f"{TextColors.RED}{BackgroundColors.WHITE}{too_heavy}{TextColors.RESET_ALL}{round(weight, 2)}{p.METRIC}")
+    max_row = inv_height - 2 - curr_row - 2
+    if curr_row == 0:
+        printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"Vide...                ")
+        curr_row += 1
+    for i in range(max_row):
+        printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"{' '*(board_width-(map_width+map_margin*2)-5)}")
+        curr_row += 1
+    heavy_text = " Vous etes trop lourd ! "
+    too_heavy = heavy_text if weight > p.MAX_WEIGHT else ' '*len(heavy_text)
+    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC + too_heavy), info_height + inv_height-1, f"{TextColors.RED if too_heavy == heavy_text else ''}{BackgroundColors.WHITE if too_heavy == heavy_text else ''}{too_heavy}{TextColors.RESET_ALL}{round(weight, 2)}{p.METRIC}")
 
 def printMap():
     printCommands()
@@ -244,6 +200,13 @@ def printMap():
                     f'{style}{txt}{TextColors.RESET_ALL}')
     printAt(map_width//2//2, map_height+5,
             f'Y: {p.POS_Y} | X: {p.POS_X} | F: {round(p.FOOD)} | S: {round(p.STAMINA)} | W: {round(p.WATER)}\033[K')
+
+def printAll():
+    printBoard()
+    printMap()
+    printFoodAndStamina()
+    printInventory()
+    printCommands()
 
 def printAnimation(text):
     for letter in text:

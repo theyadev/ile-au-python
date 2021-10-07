@@ -99,8 +99,58 @@ def save():
     return
 
 p = initPlayer()
-collision_numbers = "124"
 
+format_prefix = "\033["
+position_suffix = "H"
+
+up_left = "╔"
+up_right = "╗"
+bot_left = "╚"
+bot_right = "╝"
+vertical = "║"
+horizontal = "═"
+vert_left = "╣"
+vert_right = "╠"
+horizontal_bot = "╦"
+horizontal_up = "╩"
+cross = "╬"
+
+collision_numbers = "124"
+commands = {
+    "z": "Haut",
+    "q": "Gauche",
+    "s": "Bas",
+    "d": "Droite",
+    "e": "Inventaire",
+    "r": "Repos",
+    "l": "Quitter"
+}
+
+map_height = len(p.MAP_MATTRIX)
+map_width = len(p.MAP_MATTRIX[0])
+map_margin = 4
+
+board_width = map_width*2
+board_height = map_height+map_margin+1
+
+range_x = map_width + map_margin*2
+
+info_height = 7
+info_text = "Statistiques"
+
+food_name = "Nourriture"
+pos_food_y = 4
+
+stamina_name = "Énergie"
+pos_stamina_y = pos_food_y+1
+
+water_name = "Soif"
+pos_water_y = pos_stamina_y+1
+
+inv_text = "Inventaire"
+inv_height = board_height - info_height - len(commands) - 4
+
+commands_text = "Commandes"
 
 clear()
 os.system("mode con cols=100 lines=40")
