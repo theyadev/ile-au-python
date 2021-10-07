@@ -9,6 +9,13 @@ class Player:
         self.STAMINA = int(stamina)
         self.WATER = int(water)
         self.INVENTORY = inventory
+        self.METRIC = "kg"
+    
+    def getWeight(self):
+        weight = 0
+        weight = sum([item.WEIGHT*item.QUANTITY for item in self.INVENTORY if item.QUANTITY > 0])
+        return weight
+
     def inventoryToJson(self):
         return [{
                 "NAME": item.NAME,
@@ -17,6 +24,7 @@ class Player:
                 "QUANTITY": item.QUANTITY,
                 "CHAR": item.CHAR
             } for item in self.INVENTORY]
+
     def toJson(self):
         return {
             "NAME": self.NAME,
@@ -34,6 +42,7 @@ class Player:
             if item[1] == x and item[2] == y:
                 return index 
         return False
+
     def getName(self):
         new_name = input(f"Comment t'apelles-tu ? ")
         try:
@@ -46,6 +55,7 @@ class Player:
                 return self.getName()
             else:
                 self.NAME = new_name
+
     def collision(self, x, y, map_m):
         try:
             pos = map_m[self.POS_Y+y][self.POS_X+x]
@@ -55,6 +65,7 @@ class Player:
             return True if str(pos) in "124" else False
         except:
             return True
+
     def move(self, x, y, challenges, map_m, random_items, items):
         if self.STAMINA <= 0: return False
         if self.collision(x, y, map_m) == False:
@@ -76,6 +87,7 @@ class Player:
                 return False
         else:
             return False
+            
     def rest(self, hours):
         if self.FOOD - 1 <= 0: return False
         for i in range(round(hours)):
