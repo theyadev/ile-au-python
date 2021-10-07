@@ -6,7 +6,7 @@ def startGame(player_name):
     number = 0
     for number_to_find in numbers_to_find:
         number_of_try = 0
-        max_number_of_try = 10
+        max_number_of_try = 6
         print(f"Devinez le nombre entre 1 et 100, vous avez {max_number_of_try} essais:")
         while number != number_to_find:
             if number_of_try >= max_number_of_try:
