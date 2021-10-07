@@ -1,5 +1,6 @@
 import json
 from settings import p
+
 def startChallenge(challenge_name):
     module = __import__(challenge_name)
     player_name = p.NAME
