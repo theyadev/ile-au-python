@@ -28,8 +28,8 @@ horizontal_bot = "╦"
 horizontal_up = "╩"
 cross = "╬"
 
-map_height = len(map_mattrix)
-map_width = len(map_mattrix[0])
+map_height = len(p.MAP_MATTRIX)
+map_width = len(p.MAP_MATTRIX[0])
 map_margin = 4
 
 board_width = map_width*2
@@ -143,7 +143,7 @@ def printBoard():
     # Statistiques
     printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(info_text)//2), 2, f"{info_text}")
     
-    #Inventaire
+    # Inventaire
     printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(inv_text)//2), info_height+1, f"{inv_text}")
 
 
@@ -155,17 +155,30 @@ def printFoodAndStamina():
 
 
 def getIndexItem(x,y):
-    for index,item in enumerate(random_items):
+    for index,item in enumerate(p.RANDOM_ITEMS):
         if item[1] == x and item[2] == y:
             return index 
     return False
 
+def printInventory():
+    col = 2
+    curr_col = 0
+    curr_row = 0
+    weight = p.getWeight()
+    for item in p.INVENTORY:
+        if item.QUANTITY == 0:
+            continue
+        printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"{item.NAME} x{item.QUANTITY}")
+        curr_row += 1
+    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC), info_height + inv_size-1, f"{round(weight, 2)}{p.METRIC}")
+
 def printMap():
     printFoodAndStamina()
+    printInventory()
     challenges = initChallenges()
-    for y in range(len(map_mattrix)):
-        for x in range(len(map_mattrix[y])):
-            map_elem = map_mattrix[y][x]
+    for y in range(len(p.MAP_MATTRIX)):
+        for x in range(len(p.MAP_MATTRIX[y])):
+            map_elem = p.MAP_MATTRIX[y][x]
             style = ""
             txt = " "
             # Challenges
@@ -174,12 +187,11 @@ def printMap():
                 txt = "X"
             elif getIndexItem(x,y):
                 index = getIndexItem(x,y)
-                index_item = random_items[index][0]
+                index_item = p.RANDOM_ITEMS[index][0]
                 items = initItems()
                 txt = items[index_item].CHAR
             # Pierre
             elif map_elem == 1:
-                # back_color = BackgroundColors.WHITE
                 txt = "▲"
             # Mer
             elif map_elem == 2:
@@ -203,13 +215,9 @@ def printMap():
                 txt = "a"
             printAt(x+map_margin, y+map_margin,
                     f'{style}{txt}{TextColors.RESET_ALL}')
-    # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Quitter: "l"')
+    # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Repos: "r" | Quitter: "l"')
     printAt(map_width//2//2, map_height+5,
             f'Y: {p.POS_Y} | X: {p.POS_X} | F: {round(p.FOOD)} | S: {round(p.STAMINA)} | W: {round(p.WATER)}\033[K')
-    for item in p.INVENTORY:
-        if item.QUANTITY == 0:
-            continue
-        print(item.NAME, item.QUANTITY)
 
 def printAnimation(text):
     for letter in text:
