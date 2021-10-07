@@ -12,3 +12,8 @@ class Item:
     
     def add(self, nb):
         self.QUANTITY += nb
+    
+    def use(self, p):
+        if self.QUANTITY <= 0: 
+            return
+        self.QUANTITY -= 1
