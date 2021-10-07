@@ -1,0 +1,25 @@
+{
+    "NAME": "Theya",
+    "POS_X": 37,
+    "POS_Y": 14,
+    "SEED": 1633591290641,
+    "FOOD": 84.45000000000003,
+    "STAMINA": 66,
+    "WATER": 81.25,
+    "INVENTORY": [
+        {
+            "NAME": "Bouteille d'Eau",
+            "DESC": "Boire",
+            "WEIGHT": 0.525,
+            "QUANTITY": 6,
+            "CHAR": "O"
+        },
+        {
+            "NAME": "Cote de Porc",
+            "DESC": "Manger",
+            "WEIGHT": 0.453,
+            "QUANTITY": 5,
+            "CHAR": "A"
+        }
+    ]
+}
