@@ -28,6 +28,16 @@ horizontal_bot = "╦"
 horizontal_up = "╩"
 cross = "╬"
 
+commands = {
+    "z": "Haut",
+    "q": "Gauche",
+    "s": "Bas",
+    "d": "Droite",
+    "e": "Inventaire",
+    "r": "Repos",
+    "l": "Quitter"
+}
+
 map_height = len(p.MAP_MATTRIX)
 map_width = len(p.MAP_MATTRIX[0])
 map_margin = 4
@@ -50,7 +60,9 @@ water_name = "Soif"
 pos_water_y = pos_stamina_y+1
 
 inv_text = "Inventaire"
-inv_size = 15
+inv_height = board_height - info_height - len(commands) - 4
+
+commands_text = "Commandes"
 
 
 def getLongestStat():
@@ -75,7 +87,7 @@ def printBoard():
             if x == board_width-1:
                 if 1 < y < info_height:
                     printAt(x, y, vertical)
-                elif 1 < y < info_height + inv_size:
+                elif 1 < y < info_height + inv_height:
                     printAt(x, y, vertical)
                 elif 1 < y < board_height:
                     printAt(x, y, vertical)
@@ -117,7 +129,16 @@ def printBoard():
                     printAt(x, y, horizontal)
                 elif x == 0:
                     printAt(x, y, vertical)
-            elif y == info_height + inv_size:
+            elif y == info_height + inv_height:
+                if x == range_x-1:
+                    printAt(x, y, vert_right)
+                elif x == board_width-1:
+                    printAt(x, y, vert_left)
+                elif x >= range_x:
+                    printAt(x, y, horizontal)
+                elif x == 0:
+                    printAt(x, y, vertical)
+            elif y == info_height + inv_height + 2:
                 if x == range_x-1:
                     printAt(x, y, vert_right)
                 elif x == board_width-1:
@@ -145,6 +166,9 @@ def printBoard():
     
     # Inventaire
     printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(inv_text)//2), info_height+1, f"{inv_text}")
+    
+    # Commandes
+    printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(commands_text)//2), info_height+inv_height+ 1, f"{commands_text}")
 
 
 def printFoodAndStamina():
@@ -153,12 +177,15 @@ def printFoodAndStamina():
     printAt(range_x+1, pos_stamina_y, f"{stamina_name}{'.' * (len(longest_stat)+ 1-len(stamina_name))}│{TextColors.BLACK}{BackgroundColors.YELLOW}{'∙'*(int(round(p.STAMINA/5)))}{BackgroundColors.RESET_ALL}{f'{BackgroundColors.WHITE + TextColors.BLACK}∙{BackgroundColors.RESET_ALL}'*(20 - int(round(p.STAMINA/5)))}│ ({round(p.STAMINA)}) ")
     printAt(range_x+1, pos_water_y, f"{water_name}{'.' * (len(longest_stat)+ 1-len(water_name))}│{TextColors.BLACK}{BackgroundColors.CYAN}{'∙'*(int(round(p.WATER/5)))}{BackgroundColors.RESET_ALL}{f'{BackgroundColors.WHITE + TextColors.BLACK}∙{BackgroundColors.RESET_ALL}'*(20 - int(round(p.WATER/5)))}│ ({round(p.WATER)}) ")
 
-
 def getIndexItem(x,y):
     for index,item in enumerate(p.RANDOM_ITEMS):
         if item[1] == x and item[2] == y:
             return index 
     return False
+
+def printCommands():
+    for index, (key, action) in enumerate(commands.items()):
+        printAt(range_x+1, inv_height + info_height + index + 3, f"{key}: {action}")
 
 def printInventory():
     col = 2
@@ -170,9 +197,10 @@ def printInventory():
             continue
         printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"{item.NAME} x{item.QUANTITY}")
         curr_row += 1
-    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC), info_height + inv_size-1, f"{round(weight, 2)}{p.METRIC}")
+    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC), info_height + inv_height-1, f"{round(weight, 2)}{p.METRIC}")
 
 def printMap():
+    printCommands()
     printFoodAndStamina()
     printInventory()
     challenges = initChallenges()
@@ -215,7 +243,6 @@ def printMap():
                 txt = "a"
             printAt(x+map_margin, y+map_margin,
                     f'{style}{txt}{TextColors.RESET_ALL}')
-    # print('Haut: "z", Gauche: "q", Bas: "s", Droite:"d" | Inventaire: "e" | Repos: "r" | Quitter: "l"')
     printAt(map_width//2//2, map_height+5,
             f'Y: {p.POS_Y} | X: {p.POS_X} | F: {round(p.FOOD)} | S: {round(p.STAMINA)} | W: {round(p.WATER)}\033[K')
 
