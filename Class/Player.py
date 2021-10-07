@@ -11,6 +11,7 @@ class Player:
         self.WATER = int(water)
         self.INVENTORY = inventory
         self.METRIC = "kg"
+        self.MAX_WEIGHT = 5
         self.MAP_MATTRIX = map_mattrix
         self.RANDOM_ITEMS = random_items
     
@@ -54,7 +55,7 @@ class Player:
             self.POS_X += x
             self.POS_Y += y
             index_item = self.getIndexItem(self.POS_X,self.POS_Y)
-            if index_item:
+            if index_item and self.getWeight() < self.MAX_WEIGHT:
                 self.INVENTORY[self.RANDOM_ITEMS[index_item][0]].QUANTITY += 1
                 self.RANDOM_ITEMS.pop(index_item)
 

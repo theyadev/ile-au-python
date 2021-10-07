@@ -188,8 +188,6 @@ def printCommands():
         printAt(range_x+1, inv_height + info_height + index + 3, f"{key}: {action}")
 
 def printInventory():
-    col = 2
-    curr_col = 0
     curr_row = 0
     weight = p.getWeight()
     for item in p.INVENTORY:
@@ -197,7 +195,8 @@ def printInventory():
             continue
         printAt(map_width+map_margin*2+1, info_height + 3 + curr_row, f"{item.NAME} x{item.QUANTITY}")
         curr_row += 1
-    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC), info_height + inv_height-1, f"{round(weight, 2)}{p.METRIC}")
+    too_heavy = f" You are too Heavy ! " if weight > p.MAX_WEIGHT else ''
+    printAt(board_width-2-len(str(round(weight, 2)) + p.METRIC + too_heavy), info_height + inv_height-1, f"{TextColors.RED}{BackgroundColors.WHITE}{too_heavy}{TextColors.RESET_ALL}{round(weight, 2)}{p.METRIC}")
 
 def printMap():
     printCommands()
