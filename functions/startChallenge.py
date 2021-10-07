@@ -7,7 +7,7 @@ def startChallenge(challenge_name):
     winner = module.startGame(player_name)
     if winner == player_name:
         print('Bravo !!! Vous avez gagner !')
-        with open('./challenges.json','r+') as json_file:
+        with open('./Data/challenges.json','r+') as json_file:
             data = json.load(json_file)
             for index, item in enumerate(data): 
                 if item['name'] == challenge_name:
