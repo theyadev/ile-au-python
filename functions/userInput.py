@@ -1,3 +1,4 @@
+from os import remove
 from settings import *
 from startChallenge import startChallenge
 from prints import printMap, printFoodAndStamina, printBoard, printAt, printAll
@@ -7,89 +8,100 @@ from time import sleep
 def useMovement(movement):
     if movement == False:
         printMap()
-        return userInput()
+        return
     else:
         clear()
         startChallenge(movement)
         clear()
         printBoard()
         printMap()
-        return userInput()
-
+        return
 def userInput():
-    command = ""
-    try:
-        command = bytes.decode(msvcrt.getch()).lower()
-    except:
-        return userInput()
+    while True:
+        command = ""
+        try:
+            command = bytes.decode(msvcrt.getch()).lower()
+        except:
+            continue
 
-    if command == "l":
-        clear()
-        print('Sauvegarde en cours...')
-        save()
-        print("Quitter...")
-        exit()
-    elif command == 'r':         
-        while p.STAMINA < 100:
-            if p.rest(1) == False: 
-                return userInput()
-            
-            printFoodAndStamina()
-            printMap()
-            time.sleep(1)
-        return userInput()
-    elif command == "e":
-        pointer = "\033[5m←\033[0m (Entrée)"
-        pointer_pos = 1
-        menu = [item for item in p.INVENTORY if item.QUANTITY > 0]
-
-        inventory_x = map_width+map_margin*2+1
-
-        def resetPointer(reset_all = False):
-            for i in range(len(menu)):
-                if reset_all == False and i == pointer_pos -1:
+        if command == "l":
+            clear()
+            print('Sauvegarde en cours...')
+            save()
+            print("Quitter...")
+            exit()
+        elif command == 'r':         
+            while p.STAMINA < 100:
+                if p.rest(1) == False: 
                     continue
-                printAt(inventory_x + len(menu[i].NAME)+len(str(menu[i].QUANTITY))+2,info_height + 3 + i, " "*(len(pointer)+2))
+                
+                printFoodAndStamina()
+                printMap()
+                time.sleep(1)
+            continue
+        elif command == "e":
+            pointer = "\033[5m←\033[0m (Entrée)"
+            pointer_pos = 1
+            menu = [item for item in p.INVENTORY if item.QUANTITY > 0]
 
-        while True:
-            if len(menu) == 0:
-                break
-            printAt(inventory_x +len(menu[pointer_pos-1].NAME)+len(str(menu[pointer_pos-1].QUANTITY))+4, info_height + 2 + pointer_pos, pointer)
-            resetPointer()
-            command = ord(msvcrt.getch())
+            inventory_x = map_width+map_margin*2+1
 
-            if command == 13:
-                if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
-                    menu[pointer_pos-1].use(p)
-                    pass
-                resetPointer(True)
-                break
-            elif command == 72:
-                if pointer_pos == 1:
-                    continue
-                else:
-                    pointer_pos -= 1
-            elif command == 80:
-                if pointer_pos == len(menu):
-                    continue
-                else:
-                    pointer_pos += 1
-            elif command == 108:
-                quit()
+            def resetPointer(reset_all = False):
+                for i in range(len(menu)):
+                    if reset_all == False and i == pointer_pos -1:
+                        continue
+                    printAt(inventory_x + len(menu[i].NAME)+len(str(menu[i].QUANTITY))+2,info_height + 3 + i, " "*(len(pointer)+2))
 
-        printAll()
-        return userInput()
-    elif command == "q":
-        movement = p.move(-1, 0, initChallenges())
-        useMovement(movement)
-    elif command == "d":
-        movement = p.move(1, 0, initChallenges())
-        useMovement(movement)
-    elif command == "z":
-        movement = p.move(0, -1, initChallenges())
-        useMovement(movement)
-    elif command == "s":
-        movement = p.move(0, 1, initChallenges())
-        useMovement(movement)
-    else:
-        return userInput()
+            while True:
+                if len(menu) == 0:
+                    break
+                printAt(inventory_x +len(menu[pointer_pos-1].NAME)+len(str(menu[pointer_pos-1].QUANTITY))+4, info_height + 2 + pointer_pos, pointer)
+                resetPointer()
+                command = ord(msvcrt.getch())
+
+                if command == 13:
+                    if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
+                        item_id = menu[pointer_pos-1].ID
+                        remove_nb = 0
+                        if item_id == "Food":
+                            if p.FOOD + 10 <= 100:
+                                p.FOOD += 10
+                                remove_nb = 1
+                        elif item_id == "Water":
+                            if p.WATER+ 10 <= 100:
+                                p.WATER +=10
+                                remove_nb = 1
+
+                        menu[pointer_pos-1].remove(remove_nb)
+                        
+                    resetPointer(True)
+                    break
+                elif command == 72:
+                    if pointer_pos == 1:
+                        continue
+                    else:
+                        pointer_pos -= 1
+                elif command == 80:
+                    if pointer_pos == len(menu):
+                        continue
+                    else:
+                        pointer_pos += 1
+                elif command == 108:
+                    quit()
+
+            printAll()
+            continue
+        elif command == "q":
+            movement = p.move(-1, 0, initChallenges())
+            useMovement(movement)
+        elif command == "d":
+            movement = p.move(1, 0, initChallenges())
+            useMovement(movement)
+        elif command == "z":
+            movement = p.move(0, -1, initChallenges())
+            useMovement(movement)
+        elif command == "s":
+            movement = p.move(0, 1, initChallenges())
+            useMovement(movement)
+        else:
+            continue
