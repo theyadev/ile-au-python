@@ -58,21 +58,29 @@ def userInput():
                 printAt(inventory_x +len(menu[pointer_pos-1].NAME)+len(str(menu[pointer_pos-1].QUANTITY))+4, info_height + 2 + pointer_pos, pointer)
                 resetPointer()
                 command = ord(msvcrt.getch())
-
                 if command == 13:
                     if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
                         item_id = menu[pointer_pos-1].ID
                         remove_nb = 0
-                        if item_id == "Food":
+                        if item_id == 2:
                             if p.FOOD + 10 <= 100:
                                 p.FOOD += 10
                                 remove_nb = 1
-                        elif item_id == "Water":
+                        elif item_id == 1:
                             if p.WATER+ 10 <= 100:
                                 p.WATER +=10
                                 remove_nb = 1
 
                         menu[pointer_pos-1].remove(remove_nb)
+                        
+                    resetPointer(True)
+                    break
+                elif command == 84 or command == 116:
+                    if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
+                        item_id = menu[pointer_pos-1].ID
+                        p.RANDOM_ITEMS.append((item_id-1, p.POS_X, p.POS_Y))
+
+                        menu[pointer_pos-1].remove(1)
                         
                     resetPointer(True)
                     break

@@ -140,6 +140,11 @@ commands = {
     "l": "Quitter"
 }
 
+commands_inventory = {
+    "Entrée": "Utiliser",
+    "t": "Jeter"
+}
+
 map_height = len(p.MAP_MATTRIX)
 map_width = len(p.MAP_MATTRIX[0])
 map_margin = 4
@@ -148,6 +153,8 @@ board_width = map_width*2
 board_height = map_height+map_margin+1
 
 range_x = map_width + map_margin*2
+
+range_x_2 = (((board_width-(map_width+map_margin*2)))//2)
 
 info_height = 7
 info_text = "Statistiques"
@@ -162,7 +169,7 @@ water_name = "Soif"
 pos_water_y = pos_stamina_y+1
 
 inv_text = "Inventaire"
-inv_height = board_height - info_height - len(commands) - 4
+inv_height = board_height - info_height - len(commands) - 6
 
 commands_text = "Commandes"
 

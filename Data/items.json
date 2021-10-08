@@ -1,19 +1,19 @@
 [{
-        "ID": "Water",
+        "ID": 1,
         "NAME": "Bouteille d'Eau",
         "DESC": "Boire",
         "WEIGHT": 0.525,
-        "CHAR": "O"
+        "CHAR": "B"
     },
     {
-        "ID": "Food",
+        "ID": 2,
         "NAME": "Cote de Porc",
         "DESC": "Manger",
         "WEIGHT": 0.453,
-        "CHAR": "A"
+        "CHAR": "G"
     },
     {
-        "ID": "Key1",
+        "ID": 3,
         "NAME": "Clée N°1",
         "DESC": "La première clée",
         "WEIGHT": 0.7,

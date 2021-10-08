@@ -29,6 +29,9 @@ def printAt(x, y, text):
 def printBoard():
     for y in range(board_height):
         for x in range(board_width):
+            if x == range_x+range_x_2:
+                if y > info_height + inv_height:
+                    printAt(x,y, vertical)
             if x == 0 or x == range_x-1:
                 if y > 1:
                     printAt(x, y, vertical)
@@ -87,7 +90,20 @@ def printBoard():
                 elif x == 0:
                     printAt(x, y, vertical)
             elif y == info_height + inv_height + 2:
-                if x == range_x-1:
+                if x == range_x+range_x_2:
+                    printAt(x,y, horizontal_bot)
+                elif x == range_x-1:
+                    printAt(x, y, vert_right)
+                elif x == board_width-1:
+                    printAt(x, y, vert_left)
+                elif x >= range_x:
+                    printAt(x, y, horizontal)
+                elif x == 0:
+                    printAt(x, y, vertical)
+            elif y == info_height + inv_height + 2+2:
+                if x == range_x+range_x_2:
+                    printAt(x,y, cross)
+                elif x == range_x-1:
                     printAt(x, y, vert_right)
                 elif x == board_width-1:
                     printAt(x, y, vert_left)
@@ -96,7 +112,9 @@ def printBoard():
                 elif x == 0:
                     printAt(x, y, vertical)
             elif y == board_height-1:
-                if x == 1:
+                if x == range_x+range_x_2:
+                    printAt(x,y, horizontal_up)
+                elif x == 1:
                     printAt(x, y, bot_left)
                 elif x > 1 and x < range_x-1:
                     printAt(x, y, horizontal)
@@ -110,14 +128,19 @@ def printBoard():
     printAt(map_width//2-len(p.NAME), 2, f"Partie de {p.NAME}!")
 
     # Statistiques
-    printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(info_text)//2), 2, f"{info_text}")
+    printAt(range_x+range_x_2-(len(info_text)//2), 2, f"{info_text}")
     
     # Inventaire
-    printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(inv_text)//2), info_height+1, f"{inv_text}")
+    printAt(range_x+range_x_2-(len(inv_text)//2), info_height+1, f"{inv_text}")
     
     # Commandes
-    printAt((map_width+(map_margin*2))+(((board_width-(map_width+map_margin*2)))//2)-(len(commands_text)//2), info_height+inv_height+ 1, f"{commands_text}")
+    printAt(range_x+range_x_2-(len(commands_text)//2), info_height+inv_height+ 1, f"{commands_text}")
 
+    # Carte
+    printAt(range_x+range_x_2-(len(commands_text)//2+9), info_height+inv_height+ 1+2, f"Carte")
+
+    # Inventaire
+    printAt(range_x+range_x_2+(len(commands_text)//2+1), info_height+inv_height+ 1+2, f"Inventaire")
 
 def printFoodAndStamina():
     longest_stat = getLongestStat()
@@ -133,7 +156,10 @@ def getIndexItem(x,y):
 
 def printCommands():
     for index, (key, action) in enumerate(commands.items()):
-        printAt(range_x+1, inv_height + info_height + index + 3, f"{key}: {action}")
+        printAt(range_x+1, inv_height + info_height + index + 5, f"{key}: {action}")
+    for index, (key, action) in enumerate(commands_inventory.items()):
+        printAt(range_x+range_x_2+2, inv_height + info_height + index + 5, f"{key}: {action}")
+        
 
 def printInventory():
     curr_row = 0
@@ -175,7 +201,7 @@ def printMap():
                 txt = items[index_item].CHAR
             # Pierre
             elif map_elem == 1:
-                txt = "▲"
+                txt = "∆"
             # Mer
             elif map_elem == 2:
                 style = TextColors.BLUE
