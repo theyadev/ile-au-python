@@ -1,10 +1,12 @@
 [{
+        "ID": "Water",
         "NAME": "Bouteille d'Eau",
         "DESC": "Boire",
         "WEIGHT": 0.525,
         "CHAR": "O"
     },
     {
+        "ID": "Food",
         "NAME": "Cote de Porc",
         "DESC": "Manger",
         "WEIGHT": 0.453,

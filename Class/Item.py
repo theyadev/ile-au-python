@@ -1,5 +1,6 @@
 class Item:
-    def __init__(self, name, description, weight, quantity, char):
+    def __init__(self, name, description, weight, quantity, char, id):
+        self.ID = id
         self.NAME = name
         self.DESC = description
         self.WEIGHT = weight
@@ -13,7 +14,3 @@ class Item:
     def add(self, nb):
         self.QUANTITY += nb
     
-    def use(self, p):
-        if self.QUANTITY <= 0: 
-            return
-        self.QUANTITY -= 1

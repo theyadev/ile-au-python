@@ -85,6 +85,7 @@ class Player:
     
     def inventoryToJson(self):
         return [{
+                "ID": item.ID,
                 "NAME": item.NAME,
                 "DESC": item.DESC,
                 "WEIGHT": item.WEIGHT,
