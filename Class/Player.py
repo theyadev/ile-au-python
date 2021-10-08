@@ -1,7 +1,7 @@
 from random import random
 from challengesCollision import checkChallengesCollision
 class Player:
-    def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100, inventory = [], map_mattrix = None, random_items = None, facing = "up"):
+    def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100, inventory = [], map_mattrix = None, random_items = None, facing = "idle"):
         self.NAME = name
         self.POS_X = x
         self.POS_Y = y

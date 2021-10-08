@@ -9,6 +9,14 @@ import time
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def getChallengesPos(x,y):
+    challenges = initChallenges()
+    y_pos = [chall['pos']['y'] for chall in challenges]
+    x_pos = [chall['pos']['x'] for chall in challenges]
+    for i in range(len(y_pos)):
+        if x == x_pos[i] and y == y_pos[i]:
+            return True
+    return False
 
 def initMap(p_seed):
     M = []
@@ -16,25 +24,22 @@ def initMap(p_seed):
     try:
         with open('./Data/map.json') as mattrix:
             data = json.load(mattrix)
-            M = []
-            for index in range(len(data)):
-                for y in data[index]:
-                    for l in y:
-                        try:
-                            if int(l) == 3:
-                                random_nmber = randint(0, 10)
-                                if random_nmber <= 8:
-                                    M[index].append(int(l))
-                                else:
-                                    M[index].append(4)
+            for y in range(len(data)):
+                for x in range(len(data[y][0])):
+                    try:
+                        if int(data[y][0][x]) == 3:
+                            random_nmber = randint(0, 10)
+                            if random_nmber <= 8 or getChallengesPos(x,y) == True:
+                                M[y].append(int(data[y][0][x]))
                             else:
-                                M[index].append(int(l))
-                        except:
-                            M.insert(index, [])
-                            M[index].append(int(l))
+                                M[y].append(4)
+                        else:
+                            M[y].append(int(data[y][0][x]))
+                    except:
+                        M.insert(y, [])
+                        M[y].append(int(data[y][0][x]))
     except:
-        return print("La map n'a pas pus charger !")
-        
+        return print('Il y a eu un probleme en chargeant la map ! ')
     return M
 
 # TODO: Si challenges.json vide ou inexistant, le creer
@@ -83,7 +88,7 @@ def initPlayer(reset=False):
         else:
             with open("./Data/player.json") as p:
                 data = json.load(p)
-                return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'], data['FACING'])
+                return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
     except:
         return print("Le joueur n'as pas pus charger correctement.")
 
