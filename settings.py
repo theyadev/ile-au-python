@@ -13,25 +13,28 @@ def clear():
 def initMap(p_seed):
     M = []
     seed(p_seed)
-    with open('./Data/map.json') as mattrix:
-        data = json.load(mattrix)
-        M = []
-        for index in range(len(data)):
-            for y in data[index]:
-                for l in y:
-                    try:
-                        if int(l) == 3:
-                            random_nmber = randint(0, 10)
-                            if random_nmber <= 8:
-                                M[index].append(int(l))
+    try:
+        with open('./Data/map.json') as mattrix:
+            data = json.load(mattrix)
+            M = []
+            for index in range(len(data)):
+                for y in data[index]:
+                    for l in y:
+                        try:
+                            if int(l) == 3:
+                                random_nmber = randint(0, 10)
+                                if random_nmber <= 8:
+                                    M[index].append(int(l))
+                                else:
+                                    M[index].append(4)
                             else:
-                                M[index].append(4)
-                        else:
+                                M[index].append(int(l))
+                        except:
+                            M.insert(index, [])
                             M[index].append(int(l))
-                    except:
-                        M.insert(index, [])
-                        M[index].append(int(l))
-
+    except:
+        return print("La map n'a pas pus charger !")
+        
     return M
 
 # TODO: Si challenges.json vide ou inexistant, le creer
@@ -61,7 +64,7 @@ def initItems():
         items_list = []
         items = json.load(items_json)
         for item in items:
-            items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0, item['CHAR']))
+            items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0, item['CHAR'], item['ID']))
         return items_list
 
 def initPlayer(reset=False):
@@ -74,7 +77,7 @@ def initPlayer(reset=False):
     else:
         with open("./Data/player.json") as p:
             data = json.load(p)
-            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
+            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
 
 def spawnItems():
     seed(p.SEED)
