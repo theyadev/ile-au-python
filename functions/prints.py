@@ -194,8 +194,17 @@ def printMap():
                 txt = "░"
             # Joueur
             if x == p.POS_X and y == p.POS_Y:
-                style += TextColors.WHITE
-                txt = "a"
+                style += TextColors.RED
+                if p.FACING == "up":
+                    txt = "▲"
+                elif p.FACING == "down":
+                    txt = "▼"
+                elif p.FACING == "left":
+                    txt = "◄"
+                elif p.FACING == "right":
+                    txt = "►"
+                else:
+                    txt ="●"
             printAt(x+map_margin, y+map_margin,
                     f'{style}{txt}{TextColors.RESET_ALL}')
     printAt(map_width//2//2, map_height+5,

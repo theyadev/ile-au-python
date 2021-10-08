@@ -1,11 +1,12 @@
 {
     "NAME": "They",
-    "POS_X": 13,
-    "POS_Y": 18,
+    "POS_X": 30,
+    "POS_Y": 19,
+    "FACING": "right",
     "SEED": 1633677142950,
-    "FOOD": 90.55000000000025,
-    "STAMINA": 34,
-    "WATER": 73.75,
+    "FOOD": 71.50000000000009,
+    "STAMINA": 2,
+    "WATER": 54.5,
     "INVENTORY": [
         {
             "ID": "Water",

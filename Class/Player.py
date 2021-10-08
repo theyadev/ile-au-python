@@ -1,10 +1,11 @@
 from random import random
 from challengesCollision import checkChallengesCollision
 class Player:
-    def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100, inventory = [], map_mattrix = None, random_items = None):
+    def __init__(self, name, x, y, seed, food = 100, stamina = 100, water = 100, inventory = [], map_mattrix = None, random_items = None, facing = "up"):
         self.NAME = name
         self.POS_X = x
         self.POS_Y = y
+        self.FACING = facing
         self.SEED = seed
         self.FOOD = int(food)
         self.STAMINA = int(stamina)
@@ -67,7 +68,7 @@ class Player:
             if challenge:
                 return challenge
             else:
-                return False
+                return True
         else:
             return False
 
@@ -98,6 +99,7 @@ class Player:
             "NAME": self.NAME,
             "POS_X": self.POS_X,
             "POS_Y": self.POS_Y,
+            "FACING": self.FACING,
             "SEED": self.SEED,
             "FOOD": self.FOOD,
             "STAMINA": self.STAMINA,

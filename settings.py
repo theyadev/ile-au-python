@@ -83,7 +83,7 @@ def initPlayer(reset=False):
         else:
             with open("./Data/player.json") as p:
                 data = json.load(p)
-                return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
+                return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'], data['FACING'])
     except:
         return print("Le joueur n'as pas pus charger correctement.")
 

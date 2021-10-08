@@ -6,7 +6,7 @@ import msvcrt
 from time import sleep
 
 def useMovement(movement):
-    if movement == False:
+    if type(movement) is bool:
         printMap()
         return
     else:
@@ -93,15 +93,23 @@ def userInput():
             continue
         elif command == "q":
             movement = p.move(-1, 0, initChallenges())
+            if movement == True:
+                p.FACING = "left"
             useMovement(movement)
         elif command == "d":
             movement = p.move(1, 0, initChallenges())
+            if movement == True:
+                p.FACING = "right"
             useMovement(movement)
         elif command == "z":
             movement = p.move(0, -1, initChallenges())
+            if movement == True:
+                p.FACING = "up"
             useMovement(movement)
         elif command == "s":
             movement = p.move(0, 1, initChallenges())
+            if movement == True:
+                p.FACING = "down"
             useMovement(movement)
         else:
             continue
