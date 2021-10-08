@@ -34,7 +34,7 @@ def userInput():
             while p.STAMINA < 100:
                 if p.rest(1) == False: 
                     continue
-                
+                p.FACING = "idle"
                 printFoodAndStamina()
                 printMap()
                 time.sleep(1)
