@@ -41,43 +41,51 @@ def initMap(p_seed):
 
 
 def initChallenges(reset=False):
-    if reset == True:
-        with open("./Data/challenges.json", "r+") as challenges:
-            data = json.load(challenges)
+    try:
+        if reset == True:
+            with open("./Data/challenges.json", "r+") as challenges:
+                data = json.load(challenges)
 
-            for index in range(len(data)):
-                data[index]["completed"] = False
+                for index in range(len(data)):
+                    data[index]["completed"] = False
 
-            challenges.seek(0)
-            json.dump(data, challenges, ensure_ascii=False, indent=4)
-            challenges.truncate()
-            return data
-    else:
-        with open("./Data/challenges.json") as challenges:
-            data = json.load(challenges)
-            return data
-
+                challenges.seek(0)
+                json.dump(data, challenges, ensure_ascii=False, indent=4)
+                challenges.truncate()
+                return data
+        else:
+            with open("./Data/challenges.json") as challenges:
+                data = json.load(challenges)
+                return data
+    except:
+        return print("Les challenges n'ont pas pus charger correctement.")
 # TODO: Si player.json vide ou inexistant, le creer
 
 def initItems():
-    with open('./Data/items.json', encoding="utf-8") as items_json:
-        items_list = []
-        items = json.load(items_json)
-        for item in items:
-            items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0, item['CHAR'], item['ID']))
-        return items_list
+    try:    
+        with open('./Data/items.json', encoding="utf-8") as items_json:
+            items_list = []
+            items = json.load(items_json)
+            for item in items:
+                items_list.append(Item(item['NAME'], item['DESC'], item['WEIGHT'], 0, item['CHAR'], item['ID']))
+            return items_list
+    except:
+        return print("Les items n'ont pas pus charger correctement.")
 
 def initPlayer(reset=False):
-    if reset == True:
-        with open("./Data/player.json", "w", encoding="utf-8") as p:
-            items = initItems()
-            default_player = Player(None, 38, 24, round(time.time() * 1000), inventory=items)
-            json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
-            return default_player
-    else:
-        with open("./Data/player.json") as p:
-            data = json.load(p)
-            return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
+    try: 
+        if reset == True:
+            with open("./Data/player.json", "w", encoding="utf-8") as p:
+                items = initItems()
+                default_player = Player(None, 38, 24, round(time.time() * 1000), inventory=items)
+                json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
+                return default_player
+        else:
+            with open("./Data/player.json") as p:
+                data = json.load(p)
+                return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
+    except:
+        return print("Le joueur n'as pas pus charger correctement.")
 
 def spawnItems():
     seed(p.SEED)
@@ -97,9 +105,12 @@ def spawnItems():
     return random_items
 
 def save():
-    with open('./Data/player.json', 'w') as json_file:
-        json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
-    return
+    try:    
+        with open('./Data/player.json', 'w') as json_file:
+            json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
+        return
+    except:
+        return print("La sauvegarde n'a pas pus s'effectuer.")
 
 p = initPlayer()
 
