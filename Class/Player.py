@@ -61,8 +61,8 @@ class Player:
                 self.RANDOM_ITEMS.pop(index_item)
 
             self.STAMINA -= 2 if self.STAMINA > 0 else 0
-            self.FOOD -= 0.05 if self.FOOD > 0 else 0
-            self.WATER -= 0.25 if self.WATER > 0 else 0
+            self.FOOD -= 0.2 if self.FOOD > 0 else 0
+            self.WATER -= 0.4 if self.WATER > 0 else 0
             challenge = checkChallengesCollision(
                 challenges, self.POS_X, self.POS_Y)
             if challenge:
