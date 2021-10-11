@@ -10,13 +10,20 @@
         "NAME": "Cote de Porc",
         "DESC": "Manger",
         "WEIGHT": 0.453,
-        "CHAR": "G"
+        "CHAR": "C"
     },
     {
         "ID": 3,
         "NAME": "Clée N°1",
         "DESC": "La première clée",
         "WEIGHT": 0.7,
-        "CHAR": "K1"    
+        "CHAR": "K"    
+    },
+    {
+        "ID": 4,
+        "NAME": "Clée N°2",
+        "DESC": "La deuxième clée",
+        "WEIGHT": 0.7,
+        "CHAR": "K"    
     }
 ]

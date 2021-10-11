@@ -7,5 +7,5 @@ def checkChallengesCollision(challenges, x ,y):
         if c["completed"] == True:
             continue
         if x == c["pos"]["x"] and y == c["pos"]["y"]:
-            returning_value = c["name"]
+            returning_value = c
     return returning_value

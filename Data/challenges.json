@@ -5,7 +5,8 @@
             "y": 18,
             "x": 13
         },
-        "completed": false
+        "completed": true,
+        "reward": 4
     },
     {
         "name": "randomnumber",
@@ -13,6 +14,7 @@
             "y": 7,
             "x": 47
         },
-        "completed": false
+        "completed": true,
+        "reward": 3
     }
 ]

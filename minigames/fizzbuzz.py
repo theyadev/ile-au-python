@@ -26,7 +26,9 @@ def startGame(player_name):
 
     players_list.insert(randint(0, len(players_list)), [player_name, randint( prob_player_min, prob_player_max)])
 
-    def round(r):
+    def round(r = 0, end=False):
+        if end == True:
+            return
         if len(players_list) == 1:
             return players_list[0][0]
         print(f"Début du round {r}")
@@ -45,9 +47,14 @@ def startGame(player_name):
                 if random_number <= players_list[i][1]:
                     print(f"{players_list[i][0]}: {answer}")
                 else:
-                    print(f"{players_list[i][0]} a perdu !!!!\n\n")
-                    players_list.pop(i)
-                    return round(r+1)
+                    if players_list[i][0] == player_name:
+                        print(f"Vous avez perdu !!!!\n\n")
+                        players_list.pop(i)
+                        return round(end=True)
+                    else:
+                        print(f"{players_list[i][0]} a perdu !!!!\n\n")
+                        players_list.pop(i)
+                        return round(r+1)
                 if i == len(players_list) -1:
                     i -= i
                 else:

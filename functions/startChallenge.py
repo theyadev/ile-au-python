@@ -1,8 +1,8 @@
 import json
 from settings import p
 
-def startChallenge(challenge_name):
-    module = __import__(challenge_name)
+def startChallenge(challenge):
+    module = __import__(challenge["name"])
     player_name = p.NAME
     winner = module.startGame(player_name)
     if winner == player_name:
@@ -10,7 +10,7 @@ def startChallenge(challenge_name):
         with open('./Data/challenges.json','r+') as json_file:
             data = json.load(json_file)
             for index, item in enumerate(data): 
-                if item['name'] == challenge_name:
+                if item['name'] == challenge["name"]:
                     break
             else:
                 index = -1
@@ -19,6 +19,7 @@ def startChallenge(challenge_name):
             json_file.seek(0)
             json.dump(data, json_file, ensure_ascii=False, indent=4)
             json_file.truncate()
+        p.INVENTORY[challenge['reward']-1].QUANTITY += 1
         input("\nAppuyez sur Entrée pour continuer... ")
         return
     else:
@@ -28,7 +29,7 @@ def startChallenge(challenge_name):
         res = input()
 
         if res.lower() == "oui" or res.lower() == "o":
-            startChallenge(challenge_name)
+            startChallenge(challenge)
         elif res.lower() == "non" or res.lower() == "n":
             print("Aurevoir ! C'était une belle partie !\n\n")
             return

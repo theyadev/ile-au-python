@@ -3,6 +3,7 @@ import time
 def startGame(player_name):
     seed(round(time.time() * 1000))
     numbers_to_find = [randint(1,100),randint(1,100),randint(1,100)]
+    print(numbers_to_find)
     number = 0
     for number_to_find in numbers_to_find:
         number_of_try = 0
