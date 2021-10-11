@@ -33,7 +33,7 @@ def userInput():
         elif command == 'r':         
             while p.STAMINA < 100:
                 if p.rest(1) == False: 
-                    continue
+                    break
                 p.FACING = "idle"
                 printFoodAndStamina()
                 printMap()
