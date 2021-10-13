@@ -25,7 +25,6 @@ def getLongestStat():
 def printAt(x, y, text):
     print(f"{format_prefix}{y};{x}{position_suffix}{text}")
 
-
 def printBoard():
     for y in range(board_height):
         for x in range(board_width):

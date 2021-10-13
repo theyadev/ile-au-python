@@ -15,15 +15,22 @@
     {
         "ID": 3,
         "NAME": "Clée N°1",
-        "DESC": "La première clée",
+        "DESC": "La première clef",
         "WEIGHT": 0.7,
-        "CHAR": "K"    
+        "CHAR": "K"
     },
     {
         "ID": 4,
         "NAME": "Clée N°2",
-        "DESC": "La deuxième clée",
+        "DESC": "La deuxième clef",
         "WEIGHT": 0.7,
-        "CHAR": "K"    
+        "CHAR": "K"
+    },
+    {
+        "ID": 5,
+        "NAME": "Clée N°3",
+        "DESC": "La troisième clef",
+        "WEIGHT": 0.7,
+        "CHAR": "K"
     }
 ]
