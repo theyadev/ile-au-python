@@ -1,5 +1,5 @@
 from random import randint
-from prints import printAt
+from prints import printAt, printAnimation
 from Colors import TextColors
 from settings import *
 
@@ -59,6 +59,17 @@ def printGameBoard():
                     printAt(x, y, vertical)
 
 def startGame(player_name):
+    clear()
+    textContinue = '\nAppuyez sur entrée pour continuer...'
+    texts_history = ["Au nord de la plage, tu trouves un petit temple taillé dans la paroi rocheuse. Au-dessus de l’arche d’entrée, est écrit un message dans une langue apparemment inconnue mais utilisant l’alphabet habituel.\n\n",
+             "Sur les colonnes de l’arche, sont d’ailleurs gravées en relief toutes les lettres de l’alphabet. Curieux, tu appuies au hasard sur l’une des lettres et tu t’aperçois que les lettres formant le message changent. Malgré cela, le message en lui-même reste incompréhensible. En effectuant plusieurs tests, tu te rends compte qu’a une lettre définie correspond une composition spécifique du message. Ne voyant pas trop quoi faire d’autre pour le moment, tu décides d’entrer dans le temple.\n\n",
+             f"\033[23mBonjour explorateur ! Pour ouvrir la porte de la montagne, atteindre le cœur de l’île et rejoindre tes compagnons, tu devras tout d’abord prouver ta valeur individuelle en gagnant les 3 clés que tu obtiendras en relevant les défis appropriés. Ceci est le premier d’entre eux\033[0m\n\n",
+             "À l’intérieur, tout le sol est recouvert de sable. Au milieu de la petite pièce, se trouve un autel avec une niche fermée par une grille apparemment sans serrure. À l’intérieur de la niche tu vois une grosse clé en argent (inatteignable tant que la grille est en place). À côté de la niche, un écriteau en bois indique : « Récite le crédo du Python, puis trace ton nom secret ».\n\n",
+    ]
+
+    for text in texts_history:
+       printAnimation(text)
+    input(textContinue)
     clear()
     for i, text in enumerate(texts): printAt(2, i+2, f"{TextColors.RED if i == 0 else TextColors.GREEN if i == 1 else TextColors.BLUE}{text.center(98)}{TextColors.RESET}")
     printGameBoard()

@@ -1,10 +1,23 @@
 from random import randint,seed
 from settings import clear
+from prints import printAnimation
 from Colors import TextColors
 import time
 
 
 def startGame(player_name):
+    clear()
+    textContinue = '\nAppuyez sur entrée pour continuer...'
+    texts = ["En haut de la falaise, en bordure de forêt et pas très loin de la plage, tu découvres la statue d’un Sphinx avec une grosse clé en bronze posée sur les pattes.\n\n",
+             "Lorsque tu t’en approches, les yeux de la statue s’illuminent et une voix se fait entendre :\n",
+             f"\033[23mBonjour explorateur ! Pour ouvrir la porte de la montagne, atteindre le cœur de l’île et rejoindre tes compagnons, tu devras tout d’abord prouver ta valeur individuelle en gagnant les 3 clés que tu obtiendras en relevant les défis appropriés. Ceci est le premier d’entre eux\033[0m\n\n",
+             "Il est bien entendu impossible de prendre la clé (qui semble collée aux pattes du Sphinx) tant que le défi n’est pasgagné.\n\n",
+             "La voix poursuit :\n",
+            f"\033[23m3 fois de suite, tu devras deviner le nombre que j’ai en tête, tu as 8 essais par nombre, es-tu prêt ?\033[0m\n\n"]
+    for text in texts:
+       printAnimation(text)
+    input(textContinue)
+    clear()
     seed(round(time.time() * 1000))
     numbers_to_find = [randint(1,100),randint(1,100),randint(1,100)]
     number = 0
