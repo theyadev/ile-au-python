@@ -117,7 +117,29 @@ def save():
     except:
         return print("La sauvegarde n'a pas pus s'effectuer.")
 
+
 p = initPlayer()
+
+clear()
+os.system("mode con cols=100 lines=40")
+if p.NAME == None:
+    p.getName()
+else:
+    continue_game = input(f"Voulez vous reprendre avec le profil de {p.NAME} ? ").lower()
+
+    if continue_game == "non" or continue_game == "n":
+        start_new_game = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.NAME} ?! ").lower()
+        if start_new_game == "o" or start_new_game == "oui":
+            initChallenges(True)
+            p = initPlayer(True)
+            p.MAP_MATTRIX = initMap(p.SEED)
+            p.RANDOM_ITEMS = spawnItems()
+            p.getName()
+
+if p.MAP_MATTRIX == None:
+    p.MAP_MATTRIX = initMap(p.SEED)
+if p.RANDOM_ITEMS == None:
+    p.RANDOM_ITEMS = spawnItems()
 
 format_prefix = "\033["
 position_suffix = "H"
@@ -177,21 +199,5 @@ inv_text = "Inventaire"
 inv_height = board_height - info_height - len(commands) - 6
 
 commands_text = "Commandes"
-
-clear()
-os.system("mode con cols=100 lines=40")
-if p.NAME == None:
-    p.getName()
-else:
-    continue_game = input(f"Voulez vous reprendre avec le profil de {p.NAME} ? ").lower()
-
-    if continue_game == "non" or continue_game == "n":
-        start_new_game = input(f"Etes-vous sur de vouloir ecraser la sauvegarde de {p.NAME} ?! ").lower()
-        if start_new_game == "o" or start_new_game == "oui":
-            initChallenges(True)
-            p = initPlayer(True)
-            p.MAP_MATTRIX = initMap(p.SEED)
-            p.RANDOM_ITEMS = spawnItems()
-            p.getName()
 
 clear()
