@@ -1,4 +1,5 @@
 from settings import p
+from prints import printWinningScreen
 
 def startGame(player_name):
     required_items = [3,4,5]
@@ -9,4 +10,4 @@ def startGame(player_name):
                     return False
                 else:
                     item.QUANTITY -= 1
-    return player_name
+    printWinningScreen()

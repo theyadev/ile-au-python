@@ -1,13 +1,16 @@
 from os import remove
 from settings import *
 from startChallenge import startChallenge
-from prints import printMap, printFoodAndStamina, printBoard, printAt, printAll
+from prints import printEndScreen, printMap, printFoodAndStamina, printBoard, printAt, printAll
 import msvcrt
 from time import sleep
 
 def useMovement(movement):
     if type(movement) is bool:
-        printMap()
+        if p.FOOD <= 0 or p.WATER <=0:
+            printEndScreen()
+        else:
+            printMap()
         return
     else:
         clear()

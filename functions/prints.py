@@ -3,6 +3,7 @@ from settings import initChallenges
 from challengesCollision import checkChallengesCollision
 from Colors import *
 from settings import *
+import settings as Var
 
 '''
 0 = Terrain
@@ -21,7 +22,23 @@ def getLongestStat():
     elif len(food_name) > len(water_name) and len(food_name) > len(stamina_name):
         return food_name
 
+def printEndScreen():
+    clear()
+    print("Vous avez perdu !")
+    input("Appuyez sur entrée pour quitter...")
+    Var.p = initPlayer(True)
+    initChallenges(True)
+    save()
+    quit()
 
+def printWinningScreen():
+    clear()
+    print("Vous avez gagner !")
+    input("Appuyez sur entrée pour quitter...")
+    Var.p = initPlayer(True)
+    initChallenges(True)
+    save()
+    quit()
 def printAt(x, y, text):
     print(f"{format_prefix}{y};{x}{position_suffix}{text}")
 
@@ -217,6 +234,11 @@ def printMap():
             elif map_elem == 5:
                 style = TextColors.YELLOW
                 txt = "░"
+            # Pont
+            elif map_elem == 6:
+                style = TextColors.WHITE
+                txt = "░"
+
             # Joueur
             if x == p.POS_X and y == p.POS_Y:
                 style += TextColors.RED
@@ -242,12 +264,13 @@ def printAll():
     printInventory()
     printCommands()
 
-def printAnimation(text):
+def printAnimation(text, speed = (0.1,0.3,0.02)):
+    comma, dots, letters = speed
     for letter in text:
         print(letter, end="", flush=True)
         if letter == ",":
-            sleep(0.1)
+            sleep(comma)
         if letter == "." or letter == "!" or letter == "?":
-            sleep(0.3)
+            sleep(dots)
         else:
-            sleep(0.02)
+            sleep(letters)
