@@ -2,10 +2,10 @@
     {
         "name": "fizzbuzz",
         "pos": {
-            "y": 18,
-            "x": 13
+            "y": 19,
+            "x": 38
         },
-        "completed": false,
+        "completed": true,
         "reward": 4
     },
     {
@@ -14,16 +14,25 @@
             "y": 7,
             "x": 47
         },
-        "completed": false,
+        "completed": true,
         "reward": 3
     },
     {
         "name": "ceasar",
         "pos": {
             "y": 19,
-            "x": 38
+            "x": 13
         },
-        "completed": false,
+        "completed": true,
         "reward": 5
+    },
+    {
+        "name": "lastDoor",
+        "pos": {
+            "y": 2,
+            "x": 15
+        },
+        "completed": true,
+        "reward": null
     }
 ]

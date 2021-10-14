@@ -20,7 +20,8 @@ def startChallenge(challenge):
             json_file.seek(0)
             json.dump(data, json_file, ensure_ascii=False, indent=4)
             json_file.truncate()
-        p.INVENTORY[challenge['reward']-1].QUANTITY += 1
+        if challenge['reward']:
+            p.INVENTORY[challenge['reward']-1].QUANTITY += 1
         input("\nAppuyez sur Entrée pour continuer... ")
         return
     else:
