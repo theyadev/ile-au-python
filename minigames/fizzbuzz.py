@@ -1,8 +1,36 @@
 from random import randint,seed
+from prints import printAt
 from time import sleep
+from Colors import TextColors
+from settings import *
 
+game_board_height = 4
+game_board_width = 100
+
+center_size = [40,60]
+def printGameBoard():
+    for y in range(game_board_height):
+        for x in range(game_board_width):
+            if y == 1:
+                if x == center_size[0]:
+                    printAt(x, y, up_left)
+                elif x == center_size[1]:
+                    printAt(x, y, up_right)
+                elif  center_size[0] < x < center_size[1]:
+                    printAt(x, y, horizontal)
+            elif y == game_board_height-1:
+                if x == center_size[0]:
+                    printAt(x, y, bot_left)
+                elif x == center_size[1]:
+                    printAt(x, y, bot_right)
+                elif center_size[0] < x < center_size[1]:
+                    printAt(x, y, horizontal)
+            else:
+                if x == center_size[0] or x == center_size[1]:
+                    printAt(x, y, vertical)
 
 def startGame(player_name):
+    clear()
     seed(randint(0, 100000))
     chief_monkeys = 1
     default_monkeys = 9
@@ -26,34 +54,46 @@ def startGame(player_name):
 
     players_list.insert(randint(0, len(players_list)), [player_name, randint( prob_player_min, prob_player_max)])
 
+    old_players_list = list(players_list)
     def round(r = 0, end=False):
         if end == True:
             return
         if len(players_list) == 1:
             return players_list[0][0]
-        print(f"Début du round {r}")
+        
+        printAt(0, 2,f"Round {r}/{len(old_players_list)-1}".center(100))
+        printGameBoard()
+
         i = 0
         for n in range(1, 1000):   
-                answer = str(n)
                 sleep(0.3)
-                if n % 3 == 0 and n % 5 == 0:
-                    answer = "FizzBuzz"
-                elif n % 3 == 0:
-                    answer = "Fizz"
-                elif n % 5 == 0:
-                    answer = "Buzz"
                 random_number = randint(0,100)
 
-                if random_number <= players_list[i][1]:
-                    print(f"{players_list[i][0]}: {answer}")
+                if random_number <= players_list[i][1] or n == 1:
+                    answer = str(n)
+
+                    if n % 3 == 0 and n % 5 == 0:
+                        answer = "FizzBuzz"
+                    elif n % 3 == 0:
+                        answer = "Fizz"
+                    elif n % 5 == 0:
+                        answer = "Buzz"
+
+                    printAt(0,n+3+(2*n-1),f"{TextColors.YELLOW}{players_list[i][0].center(100)}{TextColors.RESET}:")
+                    printAt(0,n+4+(2*n-1), f"{TextColors.GREEN}{answer.center(100)}{TextColors.RESET}\n")
                 else:
                     if players_list[i][0] == player_name:
-                        print(f"Vous avez perdu !!!!\n\n")
+                        printAt(0,n+3+(2*n-1),f"{TextColors.RED}{'Vous avez donné la mauvaise réponse !!!!'.center(100)}{TextColors.RESET}\n\n")
                         players_list.pop(i)
                         return round(end=True)
                     else:
-                        print(f"{players_list[i][0]} a perdu !!!!\n\n")
+                        printAt(0,n+3+(2*n-1),f"{TextColors.RED}{f'{players_list[i][0]} a donné la mauvaise réponse !!!!'.center(100)}{TextColors.RESET}\n\n")
+                        
                         players_list.pop(i)
+                        if len(players_list) > 1:
+                            input('Round suivant... (Entrée)'.center(100))
+                            clear()
+                        
                         return round(r+1)
                 if i == len(players_list) -1:
                     i -= i
