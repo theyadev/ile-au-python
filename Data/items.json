@@ -32,5 +32,33 @@
         "DESC": "La troisième clef",
         "WEIGHT": 0.7,
         "CHAR": "K"
+    },
+    {
+        "ID": 6,
+        "NAME": "Bouteille en Verre",
+        "DESC": "Bouteille en Verre",
+        "WEIGHT": 0.7,
+        "CHAR": "#"
+    },
+    {
+        "ID": 7,
+        "NAME": "Couteau",
+        "DESC": "Couteau Multifonction",
+        "WEIGHT": 1,
+        "CHAR": "#"
+    },
+    {
+        "ID": 8,
+        "NAME": "Ordinateur",
+        "DESC": "ton ordi portable",
+        "WEIGHT": 2.5,
+        "CHAR": "#"
+    },
+    {
+        "ID": 9,
+        "NAME": "Chargeur",
+        "DESC": "ton chargeur",
+        "WEIGHT": 1.25,
+        "CHAR": "#"
     }
 ]
