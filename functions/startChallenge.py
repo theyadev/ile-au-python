@@ -1,4 +1,5 @@
 import json
+from Colors import TextColors
 from settings import p
 
 def startChallenge(challenge):
@@ -6,7 +7,7 @@ def startChallenge(challenge):
     player_name = p.NAME
     winner = module.startGame(player_name)
     if winner == player_name:
-        print('Bravo !!! Vous avez gagner !')
+        print(f'{TextColors.GREEN}Bravo !!! Vous avez gagner !{TextColors.RESET}')
         with open('./Data/challenges.json','r+') as json_file:
             data = json.load(json_file)
             for index, item in enumerate(data): 
@@ -24,8 +25,8 @@ def startChallenge(challenge):
         return
     else:
         if winner:
-            print(f'Le gagnant est: {winner} !')
-        print('Vous avez perdu ! Voulez-vous rejouer ? (oui/non) ')
+            print(f'Le gagnant est: {TextColors.GREEN}{winner}{TextColors.RESET} !')
+        print(f'{TextColors.RED}Vous avez perdu !{TextColors.RESET} Voulez-vous rejouer ? (oui/non) ')
         res = input()
 
         if res.lower() == "oui" or res.lower() == "o":
