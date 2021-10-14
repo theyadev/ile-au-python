@@ -11,7 +11,7 @@ def startGame(player_name):
     for index, number_to_find in enumerate(numbers_to_find):
         clear()
         number_of_try = 0
-        max_number_of_try = 6
+        max_number_of_try = 8
         if index == 0:
             print(f"Devinez le nombre {TextColors.CYAN}entre 1 et 100{TextColors.RESET}, vous avez {TextColors.RED}{max_number_of_try}{TextColors.RESET} essais:".center(100), end="\n\n")
         else:
