@@ -48,7 +48,7 @@ def initMap(p_seed):
 def initChallenges(reset=False):
     try:
         if reset == True:
-            with open("./Data/challenges.json", "r+") as challenges:
+            with open("./Data/challenges.json", "r+", encoding="utf-8") as challenges:
                 data = json.load(challenges)
 
                 for index in range(len(data)):
@@ -59,7 +59,7 @@ def initChallenges(reset=False):
                 challenges.truncate()
                 return data
         else:
-            with open("./Data/challenges.json") as challenges:
+            with open("./Data/challenges.json", encoding="utf-8") as challenges:
                 data = json.load(challenges)
                 return data
     except:
@@ -86,7 +86,7 @@ def initPlayer(reset=False):
                 json.dump(default_player.toJson(), p, ensure_ascii=False, indent=4)
                 return default_player
         else:
-            with open("./Data/player.json") as p:
+            with open("./Data/player.json", encoding="utf-8") as p:
                 data = json.load(p)
                 return Player(data["NAME"], data['POS_X'], data["POS_Y"], data['SEED'], data['FOOD'], data['STAMINA'], data['WATER'], [Item(item['NAME'], item['DESC'], item['WEIGHT'], item['QUANTITY'], item['CHAR'], item['ID'])for item in data['INVENTORY']], data['MAP_MATTRIX'], data['RANDOM_ITEMS'])
     except:
@@ -111,7 +111,7 @@ def spawnItems():
 
 def save():
     try:    
-        with open('./Data/player.json', 'w') as json_file:
+        with open('./Data/player.json', 'w', encoding="utf-8") as json_file:
             json.dump(p.toJson(), json_file, ensure_ascii=False, indent=4)
         return
     except:
@@ -168,8 +168,11 @@ commands = {
 }
 
 commands_inventory = {
+    "Flêche Haut": "Haut",
+    "Flêche Bas": "Bas",
     "Entrée": "Utiliser",
-    "t": "Jeter"
+    "t": "Jeter",
+    "q": "Quitter"
 }
 
 map_height = len(p.MAP_MATTRIX)
