@@ -92,7 +92,7 @@ def inventoryInput():
             else:
                 pointer_pos += 1
         elif command == 108:
-            quit()
+            break
 
 def userInput():
     while True:
