@@ -30,7 +30,7 @@ def getIndexItem(x,y):
 
 def printEndScreen():
     clear()
-    print("Vous avez perdu !")
+    print(f"{TextColors.RED}Vous avez perdu !{TextColors.RESET}")
     input("Appuyez sur entrée pour quitter...")
     Var.p = initPlayer(True)
     initChallenges(True)
@@ -39,7 +39,7 @@ def printEndScreen():
 
 def printWinningScreen():
     clear()
-    print("Vous avez gagner !")
+    print(f"{TextColors.GREEN}Vous avez gagner !{TextColors.RESET}")
     input("Appuyez sur entrée pour quitter...")
     Var.p = initPlayer(True)
     initChallenges(True)

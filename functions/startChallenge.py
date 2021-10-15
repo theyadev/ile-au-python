@@ -30,18 +30,22 @@ def startChallenge(challenge):
 
         return
     else:
-        if winner:
-            print(f'Le gagnant est: {TextColors.GREEN}{winner}{TextColors.RESET} !')
-
-        print(f'{TextColors.RED}Vous avez perdu !{TextColors.RESET} Voulez-vous rejouer ? (oui/non) ')
-
-        res = input()
-
-        if res.lower() == "oui" or res.lower() == "o":
-            startChallenge(challenge)
-        elif res.lower() == "non" or res.lower() == "n":
-            print("Aurevoir ! C'était une belle partie !\n\n")
+        if winner == "lastDoor":
+            print(f"{TextColors.RED}Vous n'avez pas les 3 clées{TextColors.RESET}, vous ne pouvez pas continuer !")
+            input("Entrée pour continuer...")
             return
         else:
-            print("Tu n'as pas répondu oui ni non, je vais donc me désactiver ! Aurevoir !\n\n")
-            return
+            if winner:
+                print(f'Le gagnant est: {TextColors.GREEN}{winner}{TextColors.RESET} !')
+            print(f'{TextColors.RED}Vous avez perdu !{TextColors.RESET} Voulez-vous rejouer ? (oui/non) ')
+
+            res = input()
+
+            if res.lower() == "oui" or res.lower() == "o":
+                startChallenge(challenge)
+            elif res.lower() == "non" or res.lower() == "n":
+                print("Aurevoir ! C'était une belle partie !\n\n")
+                return
+            else:
+                print("Tu n'as pas répondu oui ni non, je vais donc me désactiver ! Aurevoir !\n\n")
+                return
