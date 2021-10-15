@@ -35,8 +35,8 @@
     },
     {
         "ID": 6,
-        "NAME": "Bouteille en Verre",
-        "DESC": "Bouteille en Verre",
+        "NAME": "Bouteille Cassé",
+        "DESC": "Bouteille Cassé",
         "WEIGHT": 0.7,
         "CHAR": "#"
     },

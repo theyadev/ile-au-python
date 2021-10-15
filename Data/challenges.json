@@ -5,7 +5,7 @@
             "y": 26,
             "x": 28
         },
-        "completed": true,
+        "completed": false,
         "reward": 4
     },
     {
@@ -23,7 +23,7 @@
             "y": 19,
             "x": 13
         },
-        "completed": true,
+        "completed": false,
         "reward": 5
     },
     {
