@@ -1,4 +1,3 @@
-from os import remove
 from settings import *
 from startChallenge import startChallenge
 from prints import printEndScreen, printMap, printFoodAndStamina, printBoard, printAt, printAll
@@ -19,6 +18,82 @@ def useMovement(movement):
         printBoard()
         printMap()
         return
+
+def restPlayer(p):
+    while p.STAMINA < 100:
+        if p.rest(1) == False: 
+            break
+        p.FACING = "idle"
+        printFoodAndStamina()
+        printMap()
+        sleep(1)
+    return
+
+def inventoryInput():
+    pointer = "\033[5m←\033[0m (Entrée)"
+    pointer_pos = 1
+    menu = [item for item in p.INVENTORY if item.QUANTITY > 0]
+
+    inventory_x = map_width+map_margin*2+1
+
+    def resetPointer(reset_all = False):
+        for i in range(len(menu)):
+            if reset_all == False and i == pointer_pos -1:
+                continue
+            printAt(inventory_x + len(menu[i].NAME)+len(str(menu[i].QUANTITY))+2,info_height + 3 + i, " "*(len(pointer)+2))
+
+    while True:
+        if len(menu) == 0:
+            break
+        printAt(inventory_x +len(menu[pointer_pos-1].NAME)+len(str(menu[pointer_pos-1].QUANTITY))+4, info_height + 2 + pointer_pos, pointer)
+        resetPointer()
+        command = ord(msvcrt.getch())
+        print(command)
+        if command == 113:
+            resetPointer(True)
+            break
+        elif command == 81:
+            resetPointer(True)
+            break
+        elif command == 13:
+            if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
+                item_id = menu[pointer_pos-1].ID
+                remove_nb = 0
+                if item_id == 2:
+                    if p.FOOD + 10 <= 100:
+                        p.FOOD += 10
+                        remove_nb = 1
+                elif item_id == 1:
+                    if p.WATER+ 10 <= 100:
+                        p.WATER +=10
+                        remove_nb = 1
+
+                menu[pointer_pos-1].remove(remove_nb)
+                
+            resetPointer(True)
+            break
+        elif command == 84 or command == 116:
+            if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
+                item_id = menu[pointer_pos-1].ID
+                p.RANDOM_ITEMS.append((item_id-1, p.POS_X, p.POS_Y))
+
+                menu[pointer_pos-1].remove(1)
+                
+            resetPointer(True)
+            break
+        elif command == 72:
+            if pointer_pos == 1:
+                continue
+            else:
+                pointer_pos -= 1
+        elif command == 80:
+            if pointer_pos == len(menu):
+                continue
+            else:
+                pointer_pos += 1
+        elif command == 108:
+            quit()
+
 def userInput():
     while True:
         command = ""
@@ -34,72 +109,11 @@ def userInput():
             print("Quitter...")
             exit()
         elif command == 'r':         
-            while p.STAMINA < 100:
-                if p.rest(1) == False: 
-                    break
-                p.FACING = "idle"
-                printFoodAndStamina()
-                printMap()
-                time.sleep(1)
+            restPlayer(p)
             continue
         elif command == "e":
-            pointer = "\033[5m←\033[0m (Entrée)"
-            pointer_pos = 1
-            menu = [item for item in p.INVENTORY if item.QUANTITY > 0]
-
-            inventory_x = map_width+map_margin*2+1
-
-            def resetPointer(reset_all = False):
-                for i in range(len(menu)):
-                    if reset_all == False and i == pointer_pos -1:
-                        continue
-                    printAt(inventory_x + len(menu[i].NAME)+len(str(menu[i].QUANTITY))+2,info_height + 3 + i, " "*(len(pointer)+2))
-
-            while True:
-                if len(menu) == 0:
-                    break
-                printAt(inventory_x +len(menu[pointer_pos-1].NAME)+len(str(menu[pointer_pos-1].QUANTITY))+4, info_height + 2 + pointer_pos, pointer)
-                resetPointer()
-                command = ord(msvcrt.getch())
-                if command == 13:
-                    if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
-                        item_id = menu[pointer_pos-1].ID
-                        remove_nb = 0
-                        if item_id == 2:
-                            if p.FOOD + 10 <= 100:
-                                p.FOOD += 10
-                                remove_nb = 1
-                        elif item_id == 1:
-                            if p.WATER+ 10 <= 100:
-                                p.WATER +=10
-                                remove_nb = 1
-
-                        menu[pointer_pos-1].remove(remove_nb)
-                        
-                    resetPointer(True)
-                    break
-                elif command == 84 or command == 116:
-                    if str(pointer_pos-1) in "".join([str(i) for i in range(len(menu))]):
-                        item_id = menu[pointer_pos-1].ID
-                        p.RANDOM_ITEMS.append((item_id-1, p.POS_X, p.POS_Y))
-
-                        menu[pointer_pos-1].remove(1)
-                        
-                    resetPointer(True)
-                    break
-                elif command == 72:
-                    if pointer_pos == 1:
-                        continue
-                    else:
-                        pointer_pos -= 1
-                elif command == 80:
-                    if pointer_pos == len(menu):
-                        continue
-                    else:
-                        pointer_pos += 1
-                elif command == 108:
-                    quit()
-
+            
+            inventoryInput()
             printAll()
             continue
         elif command == "q":

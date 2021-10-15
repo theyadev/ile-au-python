@@ -11,8 +11,8 @@ from prints import printMap, printAnimation, printBoard
 def main():
     clear()
 
-    items_id = [6,7,8,9]
-    if p.INVENTORY[items_id[0]-1].QUANTITY == 0:
+    items_id_to_give = [6,7,8,9]
+    if p.INVENTORY[items_id_to_give[0]-1].QUANTITY == 0:
         textContinue = '\nAppuyez sur entrée pour continuer...'
         texts = ["Ce matin, tu n'as pas été réveillé par les mouvements du navire (ton dernier souvenir est de t’être endormi sur la confortable couchette de ta cabine à bord de l’Argo), mais par le bruit des vagues, la chaleur du soleil et le champ des oiseaux...\n\n",
                 "Il semble que tu ne sois plus sur le bateau.\n\n",
@@ -30,8 +30,7 @@ def main():
             printAnimation(text)
         input(textContinue)
 
-        items_id = [6,7,8,9]
-        for item_id in items_id:
+        for item_id in items_id_to_give:
             for item in p.INVENTORY:
                 if item.ID == item_id:
                     item.QUANTITY += 1
