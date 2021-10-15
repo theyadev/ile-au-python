@@ -81,10 +81,12 @@ class Player:
 
     def rest(self, hours):
         consommation = 3
-        if self.FOOD - consommation <= 0:
+        if self.FOOD - consommation <= 0 or self.WATER - consommation <= 0:
             return False
+
         for i in range(round(hours)):
             self.FOOD -= consommation
+            self.WATER -= consommation
             if self.STAMINA + 10 > 100:
                 self.STAMINA = 100
             else:
