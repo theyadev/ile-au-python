@@ -48,7 +48,7 @@ def inventoryInput():
         printAt(inventory_x +len(menu[pointer_pos-1].NAME)+len(str(menu[pointer_pos-1].QUANTITY))+4, info_height + 2 + pointer_pos, pointer)
         resetPointer()
         command = ord(msvcrt.getch())
-        print(command)
+
         if command == 113:
             resetPointer(True)
             break
