@@ -30,7 +30,6 @@ def restPlayer(p):
     return
 
 def inventoryInput():
-    pointer = "\033[5m←\033[0m (Entrée)"
     pointer_pos = 1
     menu = [item for item in p.INVENTORY if item.QUANTITY > 0]
 

@@ -141,6 +141,13 @@ if p.MAP_MATTRIX == None:
 if p.RANDOM_ITEMS == None:
     p.RANDOM_ITEMS = spawnItems()
 
+
+"""
+
+Every Variables
+
+"""
+
 format_prefix = "\033["
 position_suffix = "H"
 
@@ -202,5 +209,9 @@ inv_text = "Inventaire"
 inv_height = board_height - info_height - len(commands) - 6
 
 commands_text = "Commandes"
+
+items_id_to_give = [6,7,8,9]
+
+pointer = "\033[5m←\033[0m (Entrée)"
 
 clear()

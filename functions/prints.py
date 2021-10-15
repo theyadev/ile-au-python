@@ -22,6 +22,12 @@ def getLongestStat():
     elif len(food_name) > len(water_name) and len(food_name) > len(stamina_name):
         return food_name
 
+def getIndexItem(x,y):
+    for index,item in enumerate(p.RANDOM_ITEMS):
+        if item[1] == x and item[2] == y:
+            return index 
+    return False
+
 def printEndScreen():
     clear()
     print("Vous avez perdu !")
@@ -39,6 +45,7 @@ def printWinningScreen():
     initChallenges(True)
     save()
     quit()
+
 def printAt(x, y, text):
     print(f"{format_prefix}{y};{x}{position_suffix}{text}")
 
@@ -140,6 +147,7 @@ def printBoard():
                     printAt(x, y, horizontal)
                 elif x == board_width-1:
                     printAt(x, y, bot_right)
+
     # Partie de
     printAt(map_width//2-len(p.NAME), 2, f"Partie de {p.NAME}!")
 
@@ -164,19 +172,12 @@ def printFoodAndStamina():
     printAt(range_x+1, pos_stamina_y, f"{stamina_name}{'.' * (len(longest_stat)+ 1-len(stamina_name))}│{TextColors.BLACK}{BackgroundColors.YELLOW}{'∙'*(int(round(p.STAMINA/5)))}{BackgroundColors.RESET_ALL}{f'{BackgroundColors.WHITE + TextColors.BLACK}∙{BackgroundColors.RESET_ALL}'*(20 - int(round(p.STAMINA/5)))}│ ({round(p.STAMINA)}) ")
     printAt(range_x+1, pos_water_y, f"{water_name}{'.' * (len(longest_stat)+ 1-len(water_name))}│{TextColors.BLACK}{BackgroundColors.CYAN}{'∙'*(int(round(p.WATER/5)))}{BackgroundColors.RESET_ALL}{f'{BackgroundColors.WHITE + TextColors.BLACK}∙{BackgroundColors.RESET_ALL}'*(20 - int(round(p.WATER/5)))}│ ({round(p.WATER)}) ")
 
-def getIndexItem(x,y):
-    for index,item in enumerate(p.RANDOM_ITEMS):
-        if item[1] == x and item[2] == y:
-            return index 
-    return False
-
 def printCommands():
     for index, (key, action) in enumerate(commands.items()):
         printAt(range_x+1, inv_height + info_height + index + 5, f"{key}: {action}")
     for index, (key, action) in enumerate(commands_inventory.items()):
         printAt(range_x+range_x_2+2, inv_height + info_height + index + 5, f"{key}: {action}")
         
-
 def printInventory():
     curr_row = 0
     weight = p.getWeight()
@@ -200,7 +201,9 @@ def printMap():
     printCommands()
     printFoodAndStamina()
     printInventory()
+
     challenges = initChallenges()
+
     for y in range(len(p.MAP_MATTRIX)):
         for x in range(len(p.MAP_MATTRIX[y])):
             map_elem = p.MAP_MATTRIX[y][x]
@@ -252,10 +255,10 @@ def printMap():
                     txt = "►"
                 else:
                     txt ="●"
-            printAt(x+map_margin, y+map_margin,
-                    f'{style}{txt}{TextColors.RESET_ALL}')
-    printAt(map_width//2//2, map_height+5,
-            f'Y: {p.POS_Y} | X: {p.POS_X} | F: {round(p.FOOD)} | S: {round(p.STAMINA)} | W: {round(p.WATER)}\033[K')
+
+            printAt(x+map_margin, y+map_margin, f'{style}{txt}{TextColors.RESET_ALL}')
+
+    printAt(map_width//2//2, map_height+5, f'Y: {p.POS_Y} | X: {p.POS_X} | F: {round(p.FOOD)} | S: {round(p.STAMINA)} | W: {round(p.WATER)}\033[K')
 
 def printAll():
     printBoard()
@@ -264,7 +267,7 @@ def printAll():
     printInventory()
     printCommands()
 
-def printAnimation(text, speed = (0.1,0.3,0.02)):
+def printAnimation(text, speed = (0.05,0.2,0.01)):
     comma, dots, letters = speed
     for letter in text:
         print(letter, end="", flush=True)

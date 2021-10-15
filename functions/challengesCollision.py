@@ -1,4 +1,3 @@
-from os import error
 from settings import *
 
 def checkChallengesCollision(challenges, x ,y):
