@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append('./Class/')
+sys.path.append('./Classes/')
 sys.path.append('./functions/')
 sys.path.append('./minigames/')
 
